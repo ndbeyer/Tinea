@@ -12,7 +12,6 @@ const UserTypeDefs = gql`
       password: String!
       termsAccepted: Boolean!
     ): AuthResponse
-    confirmEmailByLink(linkConfirmationCode: String!): AuthResponse
     confirmEmailByNumber(
       numberConfirmationCode: String!
       emailAddress: String!
@@ -23,7 +22,6 @@ const UserTypeDefs = gql`
     id: ID!
     email: String!
     createdAt: String!
-    roles: [Role!]!
   }
   type AuthResponse {
     success: Boolean!
@@ -36,11 +34,6 @@ const UserTypeDefs = gql`
   enum UserType {
     TEACHER
     PUPIL
-  }
-  enum Role {
-    ROOT
-    ADMIN
-    USER
   }
 `;
 

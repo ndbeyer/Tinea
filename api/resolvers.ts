@@ -27,7 +27,6 @@ const resolvers = {
     },
     // non-adminRoutes
     currentUser: async (_, __, context) => {
-      // console.log(context);
       return await User.gen({ id: context.viewer.userId });
     },
   },

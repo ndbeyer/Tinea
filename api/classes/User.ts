@@ -4,17 +4,11 @@ import db from "../db";
 import { formatSQLDate } from "../utils/time";
 
 const baseQuery = sql`SELECT 
-		id, 
-		first_name as "firstName", 
-		last_name as "lastName", 
+		id,  
 		email, 
-		type, 
-		school_name as "schoolName", 
-		user_name as "userName", 
 		created_at as "createdAt" 
 	FROM "user"`;
 
-type Role = "USER" | "ROOT";
 class User {
   id!: string;
   email!: string;
@@ -51,15 +45,6 @@ class User {
     });
     return users;
   }
-
-  roles: () => Promise<Role[]> = async () => {
-    const res = await db.query(
-      `SELECT role FROM "user_role" WHERE user_id = $1`,
-      [this.id]
-    );
-    const roles = res.rows.map(({ role }) => role);
-    return roles;
-  };
 }
 
 export default User;

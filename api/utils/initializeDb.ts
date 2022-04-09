@@ -23,7 +23,6 @@ const tables = {
     email text NOT NULL UNIQUE,
     password text NOT NULL,
 	  email_confirmed boolean,
-	  link_confirmation_code varchar NOT NULL,
 	  number_confirmation_code text NOT NULL,
     created_at timestamp with time zone NOT NULL,
 	  updated_at timestamp with time zone NOT NULL,

@@ -21,10 +21,6 @@ const consts = {
   API_JWT_SECRET: process.env.API_JWT_SECRET
     ? process.env.API_JWT_SECRET
     : "superSecretJwtSecret",
-  // FRONTEND
-  FRONTEND_URL: DEVELOPMENT
-    ? "http://localhost:3000"
-    : "https://<NOT_DEFINED>.com",
   // NODEMAILER
   NODEMAILER_USER: process.env.NODEMAILER_USER,
   NODEMAILER_PASSWORD: process.env.NODEMAILER_PASSWORD,
