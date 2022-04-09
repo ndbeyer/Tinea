@@ -56,12 +56,11 @@ const register = async (
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // create user
-    const res = await db.query(sql`
+    await db.query(sql`
 			INSERT INTO "user" 
 			(email, password, created_at, updated_at, number_confirmation_code, email_confirmed, terms_accepted_at) 
 			VALUES 
-			(${email}, ${hashedPassword}, now(), now(), ${numberConfirmationCode}, ${false}, now()) 
-			RETURNING id;
+			(${email}, ${hashedPassword}, now(), now(), ${numberConfirmationCode}, ${false}, now())
 		`);
     await sendConfirmationEmail({
       email,

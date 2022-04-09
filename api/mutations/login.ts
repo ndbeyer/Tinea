@@ -33,8 +33,8 @@ const login = async (_, { email, password }) => {
         "CREDENTIALS_DO_NOT_MATCH"
       );
     }
-  } catch (err) {
-    console.log(err);
+  } catch (e) {
+    console.log(">>> login catch error: ", e);
     return new ApolloError("UNEXPECTED_ERROR", "UNEXPECTED_ERROR");
   }
 };
