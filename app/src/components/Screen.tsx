@@ -7,7 +7,7 @@ import Loading from './Loading';
 
 const Background = styled.View`
   width: 100%;
-  height: ${p => p.height}px;
+  height: ${p => p.$height}px;
   position: absolute;
 `;
 
@@ -36,7 +36,7 @@ const Screen = ({
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={safeAreaViewStyle}>
-        <Background height={height} />
+        <Background $height={height} />
         {renderHeaderContent ? renderHeaderContent() : null}
         <StyledView style={style}>
           {!children ? <Loading /> : children}
