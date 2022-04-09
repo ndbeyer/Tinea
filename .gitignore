@@ -1,0 +1,8 @@
+node_modules
+.env
+config.json
+production.config.json
+.log
+dockerlogs
+.DS_Store
+*.pem
