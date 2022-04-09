@@ -7,7 +7,12 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "podinstall": "cd ./ios && pod install && cd ..",
+		"podinstall:M1": "cd ./ios && arch -x86_64 pod install && cd ..",
+    "connect-android-device": "adb reverse tcp:8081 tcp:8081",
+		"shake-android": "adb shell input keyevent 82",
+    "simulator:ios": "open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/"
   },
   "dependencies": {
     "react": "17.0.2",
