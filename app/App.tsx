@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Text} from 'react-native';
-import Screen from './src/components/Screen';
+import {Text, SafeAreaView} from 'react-native';
 import {Provider as PaperProvider, Button} from 'react-native-paper';
+
+import Screen from './src/components/Screen';
+import Navigator from './src/screens/Navigator';
+
 const App = (): JSX.Element => {
   return (
     <PaperProvider>
-      <Screen>
-        <Text>Hello</Text>
-        <Button icon="camera">Press me</Button>
-      </Screen>
+      <Navigator />
     </PaperProvider>
   );
 };
