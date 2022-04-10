@@ -3,8 +3,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import {Text} from 'react-native'; // TODO: replace
+import {Paragraph} from '../components/Text';
 import Screen from '../components/Screen';
+import HeaderScrollView from '../components/HeaderScrollView';
 
 const StyledScreen = styled(Screen)`
   justify-content: center;
@@ -12,9 +13,62 @@ const StyledScreen = styled(Screen)`
 
 const PlaceHolderScreen = (): JSX.Element => {
   return (
-    <StyledScreen>
-      <Text>PlaceHolderScreen</Text>
-    </StyledScreen>
+    <HeaderScrollView>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+      <Paragraph>PlaceHolderScreen</Paragraph>
+    </HeaderScrollView>
   );
 };
 

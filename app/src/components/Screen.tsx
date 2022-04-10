@@ -7,7 +7,7 @@ import Loading from './Loading';
 
 const Background = styled.View`
   width: 100%;
-  height: ${p => p.$height}px;
+  height: ${p => p.height}px;
   position: absolute;
 `;
 
@@ -15,8 +15,7 @@ const ContentWrapper = styled.View`
   width: 100%;
   height: 100%;
   align-items: center;
-  border: 3px solid blue;
-  /* TODO: */
+  border: 3px solid red;
 `;
 
 const safeAreaViewStyle = {
@@ -38,7 +37,8 @@ const Screen = ({
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={safeAreaViewStyle}>
-        <Background $height={height} />
+        <Background height={height} />
+        {/* TODO: background color */}
         {renderHeaderContent ? renderHeaderContent() : null}
         <ContentWrapper style={style}>
           {!children ? <Loading /> : children}

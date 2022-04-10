@@ -10,7 +10,7 @@ import {Paragraph} from './Text';
 // import BlurView from './BlurView';
 // TODO:
 import Icon from './Icon';
-import {tabNavigatorConfig} from '../screens/Navigator';
+import {tabs} from '../screens/Navigator';
 
 const DEFAULT_FOOTER_HEIGHT = 7;
 
@@ -33,8 +33,7 @@ const FooterContent = styled.View`
   align-items: center;
 `;
 
-const TabIconWrapper = styled.TouchableOpacity// })) // 	onPress: () => p.onPressAction(p.routeKey, p.routeName, p.isFocused), // .attrs((p) => ({
-`
+const TabIconWrapper = styled.TouchableOpacity`
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -102,7 +101,7 @@ const MyTabBar = ({state, navigation}): JSX.Element => {
         marginBottom={bottomInsets}
         height={footerHeight - bottomInsets}>
         {state.routes.map((route, index) => {
-          const iconName = tabNavigatorConfig[index].icon;
+          const iconName = tabs[index].icon;
           const label = route.name;
           const isFocused = state.index === index;
 

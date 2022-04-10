@@ -6,9 +6,10 @@ import Loading from './Loading';
 import Header, {useHeaderHeight} from './Header';
 import {useTabBarHeight} from '../components/TabBar';
 
-const Screen = styled.View`
+const Wrapper = styled.View`
   width: 100%;
   height: ${p => p.height}px;
+  /* border: 3px solid red; */
 `;
 
 const Background = styled.View`
@@ -85,7 +86,7 @@ const HeaderScrollView = ({
 
   return (
     <>
-      <Screen height={screenHeight}>
+      <Wrapper height={screenHeight}>
         <Background height={screenHeight} />
 
         {loading ? (
@@ -114,7 +115,7 @@ const HeaderScrollView = ({
           renderHeaderContent={renderHeaderContent}
           headerContentHeight={headerContentHeight}
         />
-      </Screen>
+      </Wrapper>
     </>
   );
 };
