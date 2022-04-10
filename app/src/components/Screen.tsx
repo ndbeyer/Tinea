@@ -11,10 +11,12 @@ const Background = styled.View`
   position: absolute;
 `;
 
-const StyledView = styled.View`
+const ContentWrapper = styled.View`
   width: 100%;
   height: 100%;
   align-items: center;
+  border: 3px solid blue;
+  /* TODO: */
 `;
 
 const safeAreaViewStyle = {
@@ -38,9 +40,9 @@ const Screen = ({
       <SafeAreaView style={safeAreaViewStyle}>
         <Background $height={height} />
         {renderHeaderContent ? renderHeaderContent() : null}
-        <StyledView style={style}>
+        <ContentWrapper style={style}>
           {!children ? <Loading /> : children}
-        </StyledView>
+        </ContentWrapper>
       </SafeAreaView>
     </>
   );
