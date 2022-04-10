@@ -5,14 +5,14 @@ import db from "../db";
 import dbTestData from "../dbTestData";
 
 const types = {
-  product_target: sql`
-	CREATE TYPE "product_target" AS ENUM
-	('TEACHER', 'PUPIL');
-`,
-  user_type: sql`
-		CREATE TYPE "user_type" AS ENUM
-		('TEACHER', 'PUPIL');
-	`,
+  //   product_target: sql`
+  // 	CREATE TYPE "product_target" AS ENUM
+  // 	('TEACHER', 'PUPIL');
+  // `,
+  //   user_type: sql`
+  // 		CREATE TYPE "user_type" AS ENUM
+  // 		('TEACHER', 'PUPIL');
+  // 	`,
 };
 
 const tables = {
