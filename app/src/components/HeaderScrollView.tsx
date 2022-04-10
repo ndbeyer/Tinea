@@ -44,7 +44,7 @@ const HeaderScrollView = ({
 }: {
   renderHeaderContent?: () => JSX.Element;
   headerContentHeight?: number;
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
   loading?: boolean;
   style?: {[key: string]: string | number};
   verticalPadding?: number;
