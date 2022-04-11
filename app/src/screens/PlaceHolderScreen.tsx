@@ -1,19 +1,17 @@
-//@format
-//@flow
-
 import React from 'react';
 import styled from 'styled-components';
 import {Paragraph} from '../components/Text';
-import Screen from '../components/Screen';
+import Button from '../components/Button';
 import HeaderScrollView from '../components/HeaderScrollView';
 
-const StyledScreen = styled(Screen)`
-  justify-content: center;
-`;
+const PlaceHolderScreen = ({navigation}): JSX.Element => {
+  const handleNavigate = React.useCallback(() => {
+    navigation.navigate('Test');
+  }, [navigation]);
 
-const PlaceHolderScreen = (): JSX.Element => {
   return (
     <HeaderScrollView>
+      <Button onPress={handleNavigate} label="click me" />
       <Paragraph>PlaceHolderScreen</Paragraph>
       <Paragraph>PlaceHolderScreen</Paragraph>
       <Paragraph>PlaceHolderScreen</Paragraph>

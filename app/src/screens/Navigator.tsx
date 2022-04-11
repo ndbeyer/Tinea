@@ -21,7 +21,7 @@ const useAppState = () => {
 
 const stackNavigatorConfig = [
   {
-    name: 'Playlists',
+    name: 'Test',
     component: PlaceHolderScreen,
   },
   {
