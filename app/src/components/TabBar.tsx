@@ -7,8 +7,7 @@ import styled, {useTheme} from 'styled-components/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {Paragraph} from './Text';
-// import BlurView from './BlurView';
-// TODO:
+import BlurView from './BlurView';
 import Icon from './Icon';
 import {tabs} from '../screens/Navigator';
 
@@ -95,8 +94,7 @@ const MyTabBar = ({state, navigation}): JSX.Element => {
 
   return (
     <FooterWrapper height={footerHeight}>
-      {/* <BlurView/> */}
-      {/* TODO: */}
+      <BlurView />
       <FooterContent
         marginBottom={bottomInsets}
         height={footerHeight - bottomInsets}>

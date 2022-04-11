@@ -10,8 +10,9 @@ import {
   useNavigationState,
   useRoute,
 } from '@react-navigation/native';
-// import BlurView from './BlurView';
-// TODO:
+import BlurView from './BlurView';
+
+const PlaceHolderBlurView = styled.View``;
 
 const DEFAULT_HEADER_HEIGHT = 6;
 
@@ -102,8 +103,7 @@ const Header = ({
 
   return (
     <HeaderWrapper height={headerTotalHeight}>
-      {/* <BlurView /> */}
-      {/* TODO: */}
+      <BlurView />
       <HeaderBaseContent marginTop={topInsets} height={headerBaseContentHeight}>
         {navigationState.index > 0 ? (
           <StyledIcon size="3.25rem" name="back" onPress={handleGoBack} />

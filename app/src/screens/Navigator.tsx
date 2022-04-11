@@ -19,6 +19,53 @@ const useAppState = () => {
   return 'LOGGED_IN';
 };
 
+const stackNavigatorConfig = [
+  {
+    name: 'Playlists',
+    component: PlaceHolderScreen,
+  },
+  {
+    name: 'Artists',
+    component: PlaceHolderScreen,
+  },
+  {
+    name: 'Artist',
+    component: PlaceHolderScreen,
+  },
+  {
+    name: 'ArtistBetsScreen',
+    component: PlaceHolderScreen,
+  },
+  {
+    name: 'Dashboard',
+    component: PlaceHolderScreen,
+  },
+  {
+    name: 'Transactions',
+    component: PlaceHolderScreen,
+  },
+  {
+    name: 'Settings',
+    component: PlaceHolderScreen,
+  },
+];
+
+const getStackNavigator = initialRouteName => () => {
+  return (
+    <Stack.Navigator
+      initialRouteName={initialRouteName}
+      screenOptions={defaultScreenOptions}>
+      {stackNavigatorConfig.map(({name, component}, index) => (
+        <Stack.Screen
+          key={`${name}+${index}`}
+          name={name}
+          component={component}
+        />
+      ))}
+    </Stack.Navigator>
+  );
+};
+
 export const tabs: {
   name: string;
   component: () => JSX.Element;
@@ -26,22 +73,22 @@ export const tabs: {
 }[] = [
   {
     name: 'Dashboard',
-    component: PlaceHolderScreen,
+    component: getStackNavigator('Dashboard'),
     icon: 'dashboard',
   },
   {
     name: 'Playlists',
-    component: PlaceHolderScreen,
+    component: getStackNavigator('Playlists'),
     icon: 'play',
   },
   {
     name: 'Transactions',
-    component: PlaceHolderScreen,
+    component: getStackNavigator('Transactions'),
     icon: 'graph',
   },
   {
     name: 'Settings',
-    component: PlaceHolderScreen,
+    component: getStackNavigator('Settings'),
     icon: 'gear',
   },
 ];
