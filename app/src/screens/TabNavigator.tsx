@@ -15,7 +15,7 @@ const TabNavigator = ({
   initialRouteName: string;
   tabs: {
     name: string;
-    component: () => JSX.Element;
+    component: ({navigation}: {navigation: any}) => JSX.Element;
     icon: string;
   }[];
 }): JSX.Element => {
