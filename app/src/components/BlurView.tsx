@@ -13,27 +13,26 @@ import styled from 'styled-components/native';
 // `;
 
 const StyledBlurView = styled.View`
-  position: absolute;
-  width: 100%;
-  height: 100%;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 `;
 
 const Opaciter = styled.View`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: ${p =>
-    p.theme.darkMode ? 'black' : p.theme.colors.background0};
-  opacity: ${p => (p.theme.darkMode ? '0.9' : '0.5')};
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: ${(p) => (p.theme.darkMode ? 'black' : p.theme.colors.background0)};
+	opacity: ${(p) => (p.theme.darkMode ? '0.9' : '0.5')};
 `;
 
 const BlurView = (): JSX.Element => {
-  return (
-    <>
-      <Opaciter />
-      <StyledBlurView />
-    </>
-  );
+	return (
+		<>
+			<Opaciter />
+			<StyledBlurView />
+		</>
+	);
 };
 
 export default BlurView;

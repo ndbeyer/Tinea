@@ -136,17 +136,10 @@ const createColorScheme = ({
 	const dark = backgroundColor
 		? chroma(backgroundColor)
 		: tintColor
-		? chroma(tintColor)
-				.set('lch.c', tintStrength)
-				.set('lch.l', 7)
+		? chroma(tintColor).set('lch.c', tintStrength).set('lch.l', 7)
 		: accent.set('lch.c', tintStrength).set('lch.l', 7);
 
-	const scale =
-		neutralColors ||
-		chroma
-			.scale([dark, 'white'])
-			.correctLightness()
-			.colors(6);
+	const scale = neutralColors || chroma.scale([dark, 'white']).correctLightness().colors(6);
 	const neutrals = darkMode ? scale.reverse() : scale;
 
 	const background1 = darkMode
@@ -209,9 +202,7 @@ const createColorScheme = ({
 		border0: background1.set('lch.l', darkMode ? '+7' : '-5').hex(),
 		background1: background1.hex(),
 		blurTint: background0.alpha(blurTintAlpha).hex(),
-		inverseBlurTint: chroma(neutrals[0])
-			.alpha(blurTintAlpha)
-			.hex(),
+		inverseBlurTint: chroma(neutrals[0]).alpha(blurTintAlpha).hex(),
 
 		// flags
 		darkMode: Boolean(darkMode),
