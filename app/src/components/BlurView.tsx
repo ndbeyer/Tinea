@@ -23,7 +23,8 @@ const Opaciter = styled.View`
 	width: 100%;
 	height: 100%;
 	background-color: ${(p) => (p.theme.darkMode ? 'black' : p.theme.colors.background0)};
-	opacity: ${(p) => (p.theme.darkMode ? '0.9' : '0.5')};
+	/* opacity: ${(p) => (p.theme.darkMode ? '0.9' : '0.5')}; */
+	opacity: 0.9;
 `;
 
 const BlurView = (): JSX.Element => {
