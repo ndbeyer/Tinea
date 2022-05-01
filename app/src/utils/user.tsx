@@ -26,7 +26,7 @@ export const useCurrentUser = (): undefined | null | CurrentUser => {
 	const { data, error, loading } = useQuery(CURRENT_USER_QUERY, {
 		fetchPolicy: 'cache-and-network',
 	});
-	return React.useMemo(() => data?.currentUser, []);
+	return React.useMemo(() => data?.currentUser, [data?.currentUser]);
 };
 
 type AppState = 'LOGGED_IN' | 'LOGGED_OUT' | 'LOADING';

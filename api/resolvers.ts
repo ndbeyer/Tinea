@@ -27,6 +27,11 @@ const resolvers = {
     },
     // non-adminRoutes
     currentUser: async (_, __, context) => {
+      // TODO:
+      return {
+        id: 1,
+        email: "bla",
+      };
       return await User.gen({ id: context.viewer.userId });
     },
   },

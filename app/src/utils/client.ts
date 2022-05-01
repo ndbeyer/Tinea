@@ -12,7 +12,7 @@ const httpLink = new HttpLink({
 });
 
 export const getToken = () => {
-	return localStorage.getItem('jwt');
+	return '123'; //localStorage.getItem('jwt');
 };
 
 const authLink = new ApolloLink((operation, forward) => {
@@ -24,7 +24,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 	if (graphQLErrors) {
 		graphQLErrors.forEach((error) => {
 			// if (DEVELOPMENT) {
-			// 	console.log('ErrorLink', error);
+			console.log('ErrorLink', error);
 			// }
 			// if (error?.extensions?.code === 'INTERNAL_SERVER_ERROR') {
 			// 	Dialog.render({
@@ -35,6 +35,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 		});
 	}
 	if (networkError) {
+		console.log('networkError: ', networkError);
 		// Dialog.render({
 		// 	title: 'Netzwerkfehler',
 		// 	description: 'Es gibt Probleme mit ihrer Internetverbindung.',
