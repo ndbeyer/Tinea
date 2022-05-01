@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import styled, { useTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components/native';
 
 const Wrapper = styled.View<{ $height?: number }>`
 	height: ${(p) => (p.height ? p.height + 'px' : '100%')};
@@ -9,7 +9,7 @@ const Wrapper = styled.View<{ $height?: number }>`
 	align-items: center;
 `;
 
-const Loading = ({ height }: { height?: number }): React.Element => {
+const Loading = ({ height }: { height?: number }): JSX.Element => {
 	const theme = useTheme();
 	return (
 		<Wrapper $height={height}>

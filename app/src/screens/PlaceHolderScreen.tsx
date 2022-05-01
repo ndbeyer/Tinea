@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Paragraph } from '../components/Text';
 import Button from '../components/Button';
 import HeaderScrollView from '../components/HeaderScrollView';

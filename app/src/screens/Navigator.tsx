@@ -8,6 +8,8 @@ import PlaceHolderScreen from './PlaceHolderScreen';
 import InitializingScreen from './InitializingScreen';
 import LoginScreen from './LoginScreen';
 
+import { useAppState } from '../utils/user';
+
 type Screen = {
 	name: string;
 	component: ({ navigation }: { navigation: any }) => JSX.Element;
@@ -112,14 +114,9 @@ const TabNavigator = ({
 	);
 };
 
-const useAppState = () => {
-	return 'LOGGED_IN';
-};
-
 const Navigator = (): JSX.Element => {
 	const appState = useAppState();
 	console.log('APP_STATE: ', appState);
-
 	return (
 		<NavigationContainer>
 			{appState === 'LOGGED_OUT' ? (

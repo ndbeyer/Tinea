@@ -80,8 +80,6 @@ const ThemeProvider = ({ children }: { children?: JSX.Element }): JSX.Element =>
 		[darkMode]
 	);
 
-	console.log('theme', theme);
-
 	return (
 		<SNThemeProvider theme={theme}>
 			<StatusBar barStyle={!darkMode ? 'dark-content' : 'light-content'} />

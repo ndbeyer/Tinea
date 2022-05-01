@@ -2,7 +2,7 @@
 //@flow
 
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { Text } from 'react-native'; // TODO: replace
 import Screen from '../components/Screen';
 

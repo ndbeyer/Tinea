@@ -43,7 +43,6 @@ export const useTabBarHeight = (
 	} = { footerContentHeight: 0 }
 ): number => {
 	const theme = useTheme();
-	console.log('TabBar theme', theme);
 	const { bottom: bottomInsets } = useSafeAreaInsets();
 	const footerHeight =
 		DEFAULT_FOOTER_HEIGHT * theme.rem + bottomInsets + (footerContentHeight as number);
