@@ -6,8 +6,11 @@ import Box from '../components/Box';
 const StyledTextInput = styled.TextInput`
 	height: ${(p) => p.theme.rem2px('5rem')};
 	border-width: 1px;
+	border-color: ${(p) => p.theme.colors.border0};
 	padding: ${(p) => p.theme.rem2px('1rem')};
-	border-radius: ${(p) => p.theme.rem2px('1rem')}; ;
+	border-radius: ${(p) => p.theme.rem2px('1rem')};
+	background-color: ${(p) => p.theme.colors.background0};
+	width: 100%;
 `;
 
 const Input = ({
