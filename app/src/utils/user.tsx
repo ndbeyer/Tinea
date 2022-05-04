@@ -23,7 +23,7 @@ export const fetchUser = async (): Promise<void> => {
 };
 
 export const useCurrentUser = (): undefined | null | CurrentUser => {
-	const { data, error, loading } = useQuery(CURRENT_USER_QUERY, {
+	const { data } = useQuery(CURRENT_USER_QUERY, {
 		fetchPolicy: 'cache-and-network',
 	});
 	return React.useMemo(() => data?.currentUser, [data?.currentUser]);
@@ -31,7 +31,7 @@ export const useCurrentUser = (): undefined | null | CurrentUser => {
 
 type AppState = 'LOGGED_IN' | 'LOGGED_OUT' | 'LOADING';
 
-export const useAppState = () => {
+export const useAppState = (): AppState => {
 	const currentUser = useCurrentUser();
 	const appState: AppState = React.useMemo(
 		() => (currentUser ? 'LOGGED_IN' : currentUser === null ? 'LOGGED_OUT' : 'LOADING'),
