@@ -40,9 +40,6 @@ const Input = ({
 		},
 		[onChange]
 	);
-
-	console.log('value', value);
-
 	return (
 		<Box m={m} p={p} width={width}>
 			<StyledTextInput

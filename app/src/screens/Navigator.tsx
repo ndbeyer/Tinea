@@ -8,7 +8,7 @@ import PlaceHolderScreen from './PlaceHolderScreen';
 import InitializingScreen from './InitializingScreen';
 import LoggedOutView from './LoggedOutView';
 
-import { useAppState } from '../utils/user';
+import { useAppState, useGetJwtFromStorage } from '../utils/user';
 
 type Screen = {
 	name: string;
@@ -117,9 +117,15 @@ const TabNavigator = ({
 const Navigator = (): JSX.Element => {
 	const appState = useAppState();
 	console.log('APP_STATE: ', appState);
+	useGetJwtFromStorage();
+
 	return (
 		<NavigationContainer>
-			{appState === 'LOGGED_OUT' ? (
+			{appState === 'LOADING' ? (
+				<Stack.Navigator screenOptions={defaultScreenOptions}>
+					<Stack.Screen name="Initializing" component={InitializingScreen} />
+				</Stack.Navigator>
+			) : appState === 'LOGGED_OUT' ? (
 				<>
 					<Stack.Navigator screenOptions={defaultScreenOptions}>
 						<Stack.Screen name="Login" component={LoggedOutView} />
@@ -127,11 +133,7 @@ const Navigator = (): JSX.Element => {
 				</>
 			) : appState === 'LOGGED_IN' ? (
 				<TabNavigator initialRouteName="Playlists" tabs={tabs} />
-			) : (
-				<Stack.Navigator screenOptions={defaultScreenOptions}>
-					<Stack.Screen name="Initializing" component={InitializingScreen} />
-				</Stack.Navigator>
-			)}
+			) : null}
 		</NavigationContainer>
 	);
 };

@@ -2,6 +2,8 @@
 
 import { ApolloClient, ApolloLink, InMemoryCache, HttpLink, from } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+
+import { getToken } from '../utils/user';
 // import { localFields } from './localState';
 
 import { API_BASE_URL } from '../consts';
@@ -11,11 +13,8 @@ const httpLink = new HttpLink({
 	uri: API_BASE_URL,
 });
 
-export const getToken = () => {
-	return '123'; //localStorage.getItem('jwt');
-};
-
 const authLink = new ApolloLink((operation, forward) => {
+	console.log('token', getToken());
 	operation.setContext({ headers: { Authorization: `Bearer ${getToken()}` } });
 	return forward(operation);
 });

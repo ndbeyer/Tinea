@@ -4,6 +4,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Image } from 'react-native'; // TODO: replace
+
 import Screen from '../components/Screen';
 import Button from '../components/Button';
 import Dialog from '../components/Dialog';
@@ -39,9 +40,10 @@ const errorDict = {
 	CONFIRMATION_CODE_INVALID: 'Bestätigungscode ungültig',
 	EMAIL_ALREADY_CONFIRMED: 'Email bereits bestätigt',
 	EMAIL_NOT_EXISTENT: 'Diese Emailadresse ist uns leider nicht bekannt.',
+	SAVE_JWT_ERROR: 'Fehler beim Speichern des JWT',
 };
 
-const LoginScreen = (): JSX.Element => {
+const LoginScreen = ({ navigation }): JSX.Element => {
 	const [mode, setMode] = React.useState<'REGISTER' | 'CONFIRMATION' | 'LOGIN'>('REGISTER');
 	const [email, setEmail] = React.useState<string>('');
 	const [password, setPassword] = React.useState<string>('');
@@ -83,10 +85,7 @@ const LoginScreen = (): JSX.Element => {
 		const { success, error } = await confirmEmail(email, code);
 		setLoading(false);
 		if (success) {
-			Dialog.render({
-				title: 'Erfolg',
-				description: 'Sie haben sich registriert!',
-			});
+			// do nothing, user will be fetched and appState will change
 		} else {
 			Dialog.render({
 				title: 'Fehler',
@@ -94,8 +93,6 @@ const LoginScreen = (): JSX.Element => {
 			});
 		}
 	}, [code, email]);
-
-	console.log({ email, password });
 
 	return (
 		<StyledScreen>
