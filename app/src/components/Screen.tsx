@@ -15,7 +15,6 @@ const ContentWrapper = styled.View`
 	width: 100%;
 	height: 100%;
 	align-items: center;
-	border: 3px solid red;
 `;
 
 const safeAreaViewStyle = {

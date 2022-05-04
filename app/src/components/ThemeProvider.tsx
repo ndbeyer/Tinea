@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { ThemeProvider as SNThemeProvider } from 'styled-components/native';
+import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components/native';
 import { times } from 'lodash';
 import { UNIT, typoDefs, pathDefs } from '../utils/theme';
 import createColorScheme from '../utils/createColorScheme';
@@ -11,7 +11,7 @@ const rem2px = (input: string, output: 'string' | 'number' = 'string') => {
 		if (typeof input === 'number') {
 			return input;
 		} else if (typeof input === 'string') {
-			if (input.includes('%')) {
+			if (input.includes('%') || input.includes('px')) {
 				return input;
 			} else if (input.includes('rem')) {
 				const numberArray = input.split(' ').map((str) => Number(str.replace('rem', '')));
@@ -81,10 +81,10 @@ const ThemeProvider = ({ children }: { children?: JSX.Element }): JSX.Element =>
 	);
 
 	return (
-		<SNThemeProvider theme={theme}>
+		<StyledComponentsThemeProvider theme={theme}>
 			<StatusBar barStyle={!darkMode ? 'dark-content' : 'light-content'} />
 			<PortalProvider>{children}</PortalProvider>
-		</SNThemeProvider>
+		</StyledComponentsThemeProvider>
 	);
 };
 
