@@ -1,20 +1,7 @@
 {
+	"extends": "../tsconfig",
 	"compilerOptions": {
-		// "strictPropertyInitialization": false,
-		"useUnknownInCatchVariables": false,
-		"allowJs": true,
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"lib": ["esnext", "dom"],
-		"moduleResolution": "node",
-		"strict": true,
-		"noImplicitThis": false,
-		"noImplicitAny": false,
-		"sourceMap": true,
-		"noEmit": true,
-		"target": "es2018",
-		"baseUrl": ".",
-	}
+		"noEmit": true
+	},
+	"exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }
