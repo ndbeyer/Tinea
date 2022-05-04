@@ -15,7 +15,7 @@
 		"simulator:ios": "open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/"
 	},
 	"dependencies": {
-    "@apollo/client": "3.4.1",
+		"@apollo/client": "3.4.1",
 		"@react-native-async-storage/async-storage": "^1.17.3",
 		"@react-navigation/bottom-tabs": "^6.3.1",
 		"@react-navigation/native": "^6.0.10",
@@ -36,6 +36,7 @@
 		"react-native-screens": "^3.13.1",
 		"react-native-svg": "^12.3.0",
 		"react-native-vector-icons": "^9.1.0",
+		"shortid": "^2.2.16",
 		"styled-components": "^5.3.5",
 		"stylelint": "^14.6.1",
 		"stylelint-config-standard": "^25.0.0",

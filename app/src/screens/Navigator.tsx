@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBar from '../components/TabBar';
 import PlaceHolderScreen from './PlaceHolderScreen';
 import InitializingScreen from './InitializingScreen';
-import LoginScreen from './LoginScreen';
+import LoggedOutView from './LoggedOutView';
 
 import { useAppState } from '../utils/user';
 
@@ -122,7 +122,7 @@ const Navigator = (): JSX.Element => {
 			{appState === 'LOGGED_OUT' ? (
 				<>
 					<Stack.Navigator screenOptions={defaultScreenOptions}>
-						<Stack.Screen name="Login" component={LoginScreen} />
+						<Stack.Screen name="Login" component={LoggedOutView} />
 					</Stack.Navigator>
 				</>
 			) : appState === 'LOGGED_IN' ? (

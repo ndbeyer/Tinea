@@ -21,7 +21,7 @@ export const sendConfirmationEmail = async ({
 }) => {
 	const html = `
 		<h1>E-Mail Bestätigung</h1>
-		<h2>Willkommen bei Bildungsfreaks!</h2>
+		<h2>Willkommen bei Tinea!</h2>
 		<p>Danke, dass du dich bei uns registriert hast. Hier erhälst du deinen Email-Verifizierungscode: ${confirmationCode}.</p>
 	`;
 
@@ -33,6 +33,6 @@ export const sendConfirmationEmail = async ({
 			html,
 		});
 	} catch (err) {
-		return new ApolloError('SEND_MAIL_CONFIRMATION_FAILED', 'SEND_MAIL_CONFIRMATION_FAILED');
+		throw new ApolloError('SEND_MAIL_CONFIRMATION_FAILED', 'SEND_MAIL_CONFIRMATION_FAILED');
 	}
 };

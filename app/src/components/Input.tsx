@@ -20,13 +20,17 @@ const Input = ({
 	placeholder,
 	defaultValue,
 	onChange,
+	disabled,
+	password,
 }: {
 	m?: string;
 	p?: string;
 	width?: string;
 	placeholder?: string;
 	defaultValue?: string;
+	disabled?: boolean;
 	onChange?: (newValue: string) => void;
+	password?: boolean;
 }): JSX.Element => {
 	const [value, setValue] = React.useState(defaultValue || '');
 	const handleChange = React.useCallback(
@@ -37,9 +41,19 @@ const Input = ({
 		[onChange]
 	);
 
+	console.log('value', value);
+
 	return (
 		<Box m={m} p={p} width={width}>
-			<StyledTextInput value={value} onChangeText={handleChange} placeholder={placeholder} />
+			<StyledTextInput
+				value={value}
+				onChangeText={handleChange}
+				placeholder={placeholder}
+				editable={disabled ? false : true}
+				secureTextEntry={password}
+				autoCapitalize="none"
+				autoCorrect={false}
+			/>
 		</Box>
 	);
 };

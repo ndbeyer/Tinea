@@ -90,7 +90,12 @@ const PortalProvider = ({ children }: { children?: JSX.Element }): JSX.Element =
 	);
 };
 
-PortalProvider.render = (id: string, Component: React.ComponentType, props: any): void => {
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+PortalProvider.render = function <P>(
+	id: string,
+	Component: React.ComponentType<P>,
+	props: any
+): void {
 	const componentName = Component.name;
 	if (!componentName) throw new Error('Portal components need a name attribute');
 	if (!globalThis.portalRef) throw new Error('No PortalProvider present');

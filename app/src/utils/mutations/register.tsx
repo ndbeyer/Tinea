@@ -37,7 +37,7 @@ const register = async ({
 			return { success: false, error: errors[0]?.extensions?.code as ErrorType };
 		}
 		return { success: true, error: undefined };
-	} catch (e) {
+	} catch (e: any) {
 		if (e && e.networkError) return { success: false, error: 'NETWORK_ERROR' };
 		throw e;
 	}

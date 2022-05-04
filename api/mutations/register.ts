@@ -40,9 +40,9 @@ const register = async (
 	if (!passwordValid) {
 		return new ApolloError('PASSWORD_INVALID', 'PASSWORD_INVALID');
 	}
-	if (!termsAccepted) {
-		return new ApolloError('TERMS_NOT_ACCEPTED', 'TERMS_NOT_ACCEPTED');
-	}
+	// if (!termsAccepted) {
+	// 	return new ApolloError('TERMS_NOT_ACCEPTED', 'TERMS_NOT_ACCEPTED');
+	// }
 
 	const confirmationCode = Math.floor(100000 + Math.random() * 900000).toString();
 	const salt = await bcrypt.genSalt(10);

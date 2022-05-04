@@ -47,8 +47,6 @@ const Box = ({
 	children?: JSX.Element | null | (JSX.Element | null)[];
 	style?: any;
 }): JSX.Element => {
-	console.log('elevation', elevation);
-
 	const shadowStyle = React.useMemo(
 		() =>
 			elevation
