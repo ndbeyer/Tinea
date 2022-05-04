@@ -7,6 +7,7 @@ import confirmEmail from './mutations/confirmEmail';
 const resolvers = {
 	Query: {
 		currentUser: async (_, __, context) => {
+			console.log('currentUser query context: ', context);
 			return await User.gen({ id: context.viewer.userId });
 		},
 	},

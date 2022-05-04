@@ -14,14 +14,11 @@ export const getToken = (): string | null => {
 	return cachedJwt;
 };
 
-export const useGetJwtFromStorage = (): void => {
+export const useGetJwtFromStorageAndFetchUser = (): void => {
 	React.useEffect(() => {
 		(async () => {
 			const jwt = await EncryptedStorage.getItem('jwt');
-			console.log('useGetJwtFromStorage', jwt);
 			cachedJwt = jwt;
-
-			console.log('cachedJwt', cachedJwt);
 			await fetchUser();
 		})();
 	}, []);
@@ -42,24 +39,32 @@ export const CURRENT_USER_QUERY = gql`
 `;
 
 export const fetchUser = async (): Promise<void> => {
-	const result = await client.query({
+	await client.query({
 		query: CURRENT_USER_QUERY,
-		fetchPolicy: 'cache-first',
 	});
-	console.log('fetch user result: ', result);
 };
 
 export const useCurrentUser = (): undefined | null | CurrentUser => {
-	const { data } = useQuery(CURRENT_USER_QUERY, {
-		fetchPolicy: 'cache-and-network',
-	});
+	const { data } = useQuery(CURRENT_USER_QUERY);
 	return React.useMemo(() => data?.currentUser, [data?.currentUser]);
 };
 
 type AppState = 'LOGGED_IN' | 'LOGGED_OUT' | 'LOADING';
 
+// we need to use a different currentUser query here (with only the id) and cannot use useCurrentUser directly, otherwise fetchUser,
+// which must be called after getting the jwt from secure storage won't run against the api when restarting the app
+// this happens in the old (Audioshares) and new apollo implementation (@apollo/client)
+
 export const useAppState = (): AppState => {
-	const currentUser = useCurrentUser();
+	const currentUser = useQuery(
+		gql`
+			query CurrentUser {
+				currentUser {
+					id
+				}
+			}
+		`
+	);
 	const appState: AppState = React.useMemo(
 		() => (currentUser ? 'LOGGED_IN' : currentUser === null ? 'LOGGED_OUT' : 'LOADING'),
 		[currentUser]
