@@ -13,12 +13,10 @@ const Text = ({ color = 'accentText0', label, children }) => (
 
 export default Text;
 
-// rename Label margin to mar
-
 export const Label = styled.Text`
 	color: ${(p) =>
 		p.color === 'transparent' ? 'transparent' : p.theme.colors[p.color] || p.theme.colors.neutral1};
-	margin: ${(p) => p.theme.rem2px(p.margin) || '0'};
+	margin: ${(p) => p.theme.rem2px(p.m) || '0'};
 	font: ${(p) =>
 		({
 			xs: p.light ? p.theme.typo.label0Light : p.theme.typo.label0,
@@ -53,7 +51,7 @@ export const Paragraph = styled.Text`
 		}[p.size || 'm'])};
 	color: ${(p) =>
 		p.color === 'transparent' ? 'transparent' : p.theme.colors[p.color] || p.theme.colors.neutral0};
-	margin: ${(p) => p.theme.rem2px(p.margin) || '0'};
+	margin: ${(p) => p.theme.rem2px(p.m) || '0'};
 	text-align: ${(p) => p.align || 'left'};
 	${(p) => (p.width ? `width: ${p.theme.rem2px(p.width)}` : '')};
 	${(p) => (p.height ? `height: ${p.theme.rem2px(p.height)}` : '')};
@@ -63,7 +61,7 @@ export const Paragraph = styled.Text`
 export const Heading = styled.Text`
 	color: ${(p) =>
 		p.color === 'transparent' ? 'transparent' : p.theme.colors[p.color] || p.theme.colors.neutral1};
-	margin: ${(p) => p.theme.rem2px(p.margin) || '0'};
+	margin: ${(p) => p.theme.rem2px(p.m) || '0'};
 	font: ${(p) =>
 		({
 			xs: p.theme.typo.heading0,

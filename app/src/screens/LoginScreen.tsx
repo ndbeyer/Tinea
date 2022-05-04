@@ -8,19 +8,15 @@ import Screen from '../components/Screen';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Box from '../components/Box';
+import { Heading, Paragraph, Label } from '../components/Text';
 import login from '../utils/mutations/login';
 
 const StyledScreen = styled(Screen)`
 	justify-content: center;
 `;
 
-const StyledBox = styled(Box)`
-	background-color: green;
-`;
-
 const LoginScreen = (): JSX.Element => {
 	const theme = useTheme();
-	console.log('theme: ', theme);
 
 	const [loading, setLoading] = React.useState(false);
 
@@ -32,11 +28,27 @@ const LoginScreen = (): JSX.Element => {
 
 	return (
 		<StyledScreen>
-			<Button label="Login" onPress={handleLogin} />
-			<Input placeholder="email" />
-			<Input placeholder="password" />
-			<Text>LoginScreen</Text>
-			<StyledBox />
+			<Box
+				justifyContent="center"
+				alignItems="center"
+				borderRadius="1rem"
+				p="2rem"
+				elevation={1}
+				m="1rem"
+				bg="background0"
+			>
+				{/* <Box elevation={1} width="10rem" height="10rem" m="1rem" bg="background0" /> */}
+				<Label m="2rem">Registrieren</Label>
+				<Box m="3rem 0">
+					<Input placeholder="email" m="1rem" />
+					<Input placeholder="password" m="1rem" />
+					<Box row alignSelf="stretch" width="100%">
+						<Button link label="Bereits registriert?" onPress={handleLogin} />
+					</Box>
+				</Box>
+
+				<Button label="Registrieren" onPress={handleLogin} />
+			</Box>
 		</StyledScreen>
 	);
 };

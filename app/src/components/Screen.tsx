@@ -9,6 +9,7 @@ const Background = styled.View`
 	width: 100%;
 	height: ${(p) => p.height}px;
 	position: absolute;
+	background-color: ${(p) => p.theme.colors.background1};
 `;
 
 const ContentWrapper = styled.View`

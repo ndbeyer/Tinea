@@ -63,14 +63,6 @@ const ThemeProvider = ({ children }: { children?: JSX.Element }): JSX.Element =>
 				darkMode,
 				tintStrength: 3,
 			}),
-			elevation: (value) => ({
-				shadowColor: 'black',
-				shadowOffset: { width: 0, height: value },
-				shadowRadius: value * 2.5,
-				shadowOpacity: 0.3,
-				elevation: value,
-				zIndex: value,
-			}),
 			typo: { ...typoDefs() },
 			rem2px,
 			rem24sidesPx,
@@ -79,6 +71,8 @@ const ThemeProvider = ({ children }: { children?: JSX.Element }): JSX.Element =>
 		}),
 		[darkMode]
 	);
+
+	console.log('theme', theme);
 
 	return (
 		<StyledComponentsThemeProvider theme={theme}>
