@@ -1,6 +1,5 @@
 import client from '../client';
-import { gql } from '@apollo/client';
-import { saveJwtAndFetchUser } from '../user';
+import { gql } from 'graphql-tag';
 
 type Error =
 	| 'USER_NOT_FOUND'
@@ -15,16 +14,15 @@ const login = async ({
 }: {
 	email: string;
 	password: string;
-}): Promise<{ success: true; error: undefined } | { success: false; error: Error }> => {
+}): Promise<
+	| { success: true; error: undefined; jwt: string }
+	| { success: false; error: Error; jwt: undefined }
+> => {
 	try {
 		const { data, errors } = await client.mutate({
 			mutation: gql`
 				mutation Login($email: String!, $password: String!) {
 					login(email: $email, password: $password) {
-						user {
-							id
-							email
-						}
 						success
 						jwt
 					}
@@ -37,15 +35,17 @@ const login = async ({
 			return {
 				success: false,
 				error: errors[0]?.extensions?.code as Error,
+				jwt: undefined,
 			};
 		}
-		await saveJwtAndFetchUser(data.login.jwt);
+
 		return {
 			success: true,
 			error: undefined,
+			jwt: data.login.jwt,
 		};
 	} catch (e: any) {
-		if (e && e.networkError) return { success: false, error: 'NETWORK_ERROR' };
+		if (e && e.networkError) return { success: false, error: 'NETWORK_ERROR', jwt: undefined };
 		throw e;
 	}
 };

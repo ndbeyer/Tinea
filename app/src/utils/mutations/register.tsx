@@ -1,5 +1,5 @@
 import client from '../client';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-tag';
 
 type ErrorType =
 	| 'UNEXPECTED_ERROR'

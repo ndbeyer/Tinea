@@ -1,13 +1,14 @@
 /* eslint-disable promise/prefer-await-to-callbacks */
 
-import { ApolloClient, ApolloLink, InMemoryCache, HttpLink, from } from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { ErrorLink } from 'apollo-link-error';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { getToken } from '../utils/user';
-// import { localFields } from './localState';
 
 import { API_BASE_URL } from '../consts';
-// import Dialog from '../components/Dialog';
 
 const httpLink = new HttpLink({
 	uri: API_BASE_URL,
@@ -19,7 +20,7 @@ const authLink = new ApolloLink((operation, forward) => {
 	return forward(operation);
 });
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = new ErrorLink(({ graphQLErrors, networkError }) => {
 	if (graphQLErrors) {
 		graphQLErrors.forEach((error) => {
 			// if (DEVELOPMENT) {
@@ -42,15 +43,15 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 	}
 });
 
+const link = ApolloLink.from([
+	authLink,
+	errorLink,
+	httpLink,
+]);
+
 const client = new ApolloClient({
-	cache: new InMemoryCache({
-		// typePolicies: {
-		// 	Query: {
-		// 		fields: localFields,
-		// 	},
-		// },
-	}),
-	link: from([errorLink, authLink, httpLink]),
+	cache: new InMemoryCache(),
+	link,
 	defaultOptions: {
 		watchQuery: { errorPolicy: 'all', fetchPolicy: 'cache-first' },
 		query: { errorPolicy: 'all', fetchPolicy: 'cache-first' },

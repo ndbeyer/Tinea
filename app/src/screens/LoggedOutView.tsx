@@ -14,6 +14,7 @@ import { Label } from '../components/Text';
 import register from '../utils/mutations/register';
 import login from '../utils/mutations/login';
 import confirmEmail from '../utils/mutations/confirmEmail';
+import { saveJwtAndFetchUser } from '../utils/user';
 
 const StyledScreen = styled(Screen)`
 	justify-content: center;
@@ -61,10 +62,10 @@ const LoginScreen = ({ navigation }): JSX.Element => {
 
 	const handleLogin = React.useCallback(async () => {
 		setLoading(true);
-		const { success, error } = await login({ email, password });
+		const { success, error, jwt } = await login({ email, password });
 		setLoading(false);
 		if (success) {
-			// do nothing, user will be fetched and appState will change
+			await saveJwtAndFetchUser(jwt);
 		} else {
 			Dialog.render({
 				title: 'Fehler',
@@ -95,10 +96,10 @@ const LoginScreen = ({ navigation }): JSX.Element => {
 
 	const handleConfirm = React.useCallback(async () => {
 		setLoading(true);
-		const { success, error } = await confirmEmail(email, code);
+		const { success, error, jwt } = await confirmEmail(email, code);
 		setLoading(false);
 		if (success) {
-			// do nothing, user will be fetched and appState will change
+			await saveJwtAndFetchUser(jwt);
 		} else {
 			Dialog.render({
 				title: 'Fehler',

@@ -1,4 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from 'react-apollo';
+import { gql } from 'graphql-tag';
 import React from 'react';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import RNRestart from 'react-native-restart';
@@ -18,6 +19,7 @@ export const getToken = (): string | null => {
 export const saveJwtAndFetchUser = async (jwt: string): Promise<void> => {
 	await EncryptedStorage.setItem('jwt', jwt);
 	cachedJwt = jwt;
+	await fetchUser();
 };
 
 export const useGetJwtFromStorageAndFetchUser = (): void => {
@@ -50,11 +52,10 @@ export const logout = async (): Promise<void> => {
 };
 
 export const fetchUser = async (): Promise<void> => {
-	const fetchUserResult = await client.query({
+	await client.query({
 		query: CURRENT_USER_QUERY,
 		fetchPolicy: 'network-only',
 	});
-	console.log('fetchUserResult: ', fetchUserResult);
 };
 
 export const useCurrentUser = (): undefined | null | CurrentUser => {
@@ -63,10 +64,6 @@ export const useCurrentUser = (): undefined | null | CurrentUser => {
 };
 
 type AppState = 'LOGGED_IN' | 'LOGGED_OUT' | 'LOADING';
-
-// we need to use a different currentUser query here (with only the id) and cannot use useCurrentUser directly, otherwise fetchUser,
-// which must be called after getting the jwt from secure storage won't run against the api when restarting the app
-// this happens in the old (Audioshares) and new apollo implementation (@apollo/client)
 
 export const useAppState = (): AppState => {
 	const currentUser = useCurrentUser();

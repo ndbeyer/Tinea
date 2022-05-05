@@ -15,7 +15,6 @@ const UserTypeDefs = gql`
 		createdAt: String!
 	}
 	type AuthResponse {
-		user: User
 		success: Boolean!
 		jwt: String
 	}

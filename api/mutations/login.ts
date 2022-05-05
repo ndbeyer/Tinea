@@ -25,10 +25,7 @@ const login = async (_, { email, password }) => {
 		const token = jwt.sign(payload, consts.API_JWT_SECRET, {
 			expiresIn: 720000,
 		});
-		const user = await User.gen({ id: res.rows[0].id });
-		console.log('user: ', user);
 		return {
-			user,
 			success: true,
 			jwt: token,
 		};
