@@ -29,19 +29,19 @@ const register = async (
 ) => {
 	const emailValid = validateEmail(email);
 	if (!emailValid) {
-		return new ApolloError('EMAIL_INVALID', 'EMAIL_INVALID');
+		throw new ApolloError('EMAIL_INVALID', 'EMAIL_INVALID');
 	}
 	const alreadyExists =
 		(await db.query(sql`SELECT id FROM "user" WHERE email = ${email}`)).rows.length > 0;
 	if (alreadyExists) {
-		return new ApolloError('EMAIL_ALREADY_TAKEN', 'EMAIL_ALREADY_TAKEN');
+		throw new ApolloError('EMAIL_ALREADY_TAKEN', 'EMAIL_ALREADY_TAKEN');
 	}
 	const passwordValid = validatePassword(password);
 	if (!passwordValid) {
-		return new ApolloError('PASSWORD_INVALID', 'PASSWORD_INVALID');
+		throw new ApolloError('PASSWORD_INVALID', 'PASSWORD_INVALID');
 	}
 	// if (!termsAccepted) {
-	// 	return new ApolloError('TERMS_NOT_ACCEPTED', 'TERMS_NOT_ACCEPTED');
+	// 	throw new ApolloError('TERMS_NOT_ACCEPTED', 'TERMS_NOT_ACCEPTED');
 	// }
 
 	const confirmationCode = Math.floor(100000 + Math.random() * 900000).toString();
