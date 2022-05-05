@@ -1,9 +1,9 @@
 import db from '../db';
-import consts from '../consts';
-import jwt from 'jsonwebtoken';
 import { ApolloError } from 'apollo-server-core';
 import sql from 'sql-tagged-template-literal';
 import cryptoRandomString from 'crypto-random-string';
+
+import { createJwt } from '../utils/authHelpers';
 
 const confirmEmail = async (_, { confirmationCode, emailAddress }) => {
 	const res = await db.query(
@@ -27,14 +27,10 @@ const confirmEmail = async (_, { confirmationCode, emailAddress }) => {
 		`
 		)
 	).rows[0]?.id;
-
-	const payload = { userId };
-	const token = jwt.sign(payload, consts.API_JWT_SECRET, {
-		expiresIn: 720000,
-	});
+	const jwt = createJwt({ userId });
 	return {
 		success: true,
-		jwt: token,
+		jwt,
 		refreshToken,
 	};
 };

@@ -118,7 +118,6 @@ const TabNavigator = ({
 const Navigator = (): JSX.Element => {
 	const appState = useAppState();
 	console.log('APP_STATE: ', appState);
-	// useGetJwtFromStorageAndFetchUser();
 
 	return (
 		<NavigationContainer>

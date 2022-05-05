@@ -8,6 +8,7 @@ const UserTypeDefs = gql`
 		register(email: String!, password: String!, termsAccepted: Boolean): SuccessResponse
 		confirmEmail(confirmationCode: String!, emailAddress: String!): AuthResponse
 		login(email: String!, password: String!): AuthResponse
+		refreshLogin(refreshToken: String!): RefreshLoginResponse
 	}
 	type User {
 		id: ID!
@@ -16,6 +17,10 @@ const UserTypeDefs = gql`
 	}
 	type SuccessResponse {
 		success: Boolean!
+	}
+	type RefreshLoginResponse {
+		success: Boolean!
+		jwt: String!
 	}
 	type AuthResponse {
 		success: Boolean!

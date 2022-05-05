@@ -1,10 +1,10 @@
 import db from '../db/';
 import bcrypt from 'bcrypt';
-import consts from '../consts';
-import jwt from 'jsonwebtoken';
 import sql from 'sql-tagged-template-literal';
 import { ApolloError } from 'apollo-server-core';
 import cryptoRandomString from 'crypto-random-string';
+
+import { createJwt } from '../utils/authHelpers';
 
 const login = async (_, { email, password }) => {
 	console.log('{ email, password }: ', { email, password });
@@ -28,12 +28,10 @@ const login = async (_, { email, password }) => {
 			WHERE id = ${userId} 
 		`);
 		const payload = { userId };
-		const token = jwt.sign(payload, consts.API_JWT_SECRET, {
-			expiresIn: 720000,
-		});
+		const jwt = createJwt(payload);
 		return {
 			success: true,
-			jwt: token,
+			jwt,
 			refreshToken,
 		};
 	} else {

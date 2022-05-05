@@ -3,6 +3,7 @@ import User from './classes/User';
 import login from './mutations/login';
 import register from './mutations/register';
 import confirmEmail from './mutations/confirmEmail';
+import refreshLogin from './mutations/refreshLogin';
 
 const resolvers = {
 	Query: {
@@ -15,6 +16,7 @@ const resolvers = {
 		login,
 		register,
 		confirmEmail,
+		refreshLogin,
 	},
 };
 

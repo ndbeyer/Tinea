@@ -5,6 +5,7 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import RNRestart from 'react-native-restart';
 
 import client from './client';
+import refreshLogin from '../utils/mutations/refreshLogin';
 
 let cachedJwt: null | string = null;
 
@@ -21,21 +22,13 @@ export const saveTokensAndFetchUser = async ({
 	refreshToken,
 }: {
 	jwt: string;
-	refreshToken: string;
+	refreshToken?: string;
 }): Promise<void> => {
-	await EncryptedStorage.setItem('refreshToken', refreshToken);
+	if (refreshToken) {
+		await EncryptedStorage.setItem('refreshToken', refreshToken);
+	}
 	setJwt(jwt);
 	await fetchUser();
-};
-
-export const useGetJwtFromStorageAndFetchUser = (): void => {
-	React.useEffect(() => {
-		(async () => {
-			const jwt = await EncryptedStorage.getItem('jwt');
-			cachedJwt = jwt;
-			await fetchUser();
-		})();
-	}, []);
 };
 
 type CurrentUser = {
@@ -53,7 +46,7 @@ export const CURRENT_USER_QUERY = gql`
 `;
 
 export const logout = async (): Promise<void> => {
-	await EncryptedStorage.removeItem('jwt');
+	await EncryptedStorage.removeItem('refreshToken');
 	RNRestart.Restart();
 };
 
@@ -73,9 +66,29 @@ type AppState = 'LOGGED_IN' | 'LOGGED_OUT' | 'LOADING';
 
 export const useAppState = (): AppState => {
 	const currentUser = useCurrentUser();
+	const [triedRefresh, setTriedRefresh] = React.useState(false);
+
+	React.useEffect(() => {
+		(async () => {
+			const refreshToken = await EncryptedStorage.getItem('refreshToken');
+			if (refreshToken) {
+				const { success, jwt } = await refreshLogin({ refreshToken });
+				if (success) {
+					await saveTokensAndFetchUser({ jwt });
+				}
+			}
+			setTriedRefresh(true);
+		})();
+	}, []);
+
 	const appState: AppState = React.useMemo(
-		() => (currentUser ? 'LOGGED_IN' : currentUser === null ? 'LOGGED_OUT' : 'LOADING'),
-		[currentUser]
+		() =>
+			!triedRefresh || currentUser === undefined
+				? 'LOADING'
+				: currentUser === null
+				? 'LOGGED_OUT'
+				: 'LOGGED_IN',
+		[currentUser, triedRefresh]
 	);
 	return appState;
 };
