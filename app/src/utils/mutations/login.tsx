@@ -1,5 +1,6 @@
 import client from '../client';
 import { gql } from '@apollo/client';
+import { saveJwtAndFetchUser } from '../user';
 
 type Error =
 	| 'USER_NOT_FOUND'
@@ -8,15 +9,14 @@ type Error =
 	| 'UNEXPECTED_ERROR'
 	| 'NETWORK_ERROR';
 
-const login = async (
-	email: string,
-	password: string
-): Promise<
-	| { success: true; jwt: string; error: undefined }
-	| { success: false; jwt: undefined; error: Error }
-> => {
+const login = async ({
+	email,
+	password,
+}: {
+	email: string;
+	password: string;
+}): Promise<{ success: true; error: undefined } | { success: false; error: Error }> => {
 	try {
-		// @ts-ignore
 		const { data, errors } = await client.mutate({
 			mutation: gql`
 				mutation Login($email: String!, $password: String!) {
@@ -33,16 +33,15 @@ const login = async (
 			return {
 				success: false,
 				error: errors[0]?.extensions?.code as Error,
-				jwt: undefined,
 			};
 		}
+		await saveJwtAndFetchUser(data.login.jwt);
 		return {
 			success: true,
-			jwt: data.login.jwt,
 			error: undefined,
 		};
-	} catch (e) {
-		if (e && e.networkError) return { success: false, error: 'NETWORK_ERROR', jwt: undefined };
+	} catch (e: any) {
+		if (e && e.networkError) return { success: false, error: 'NETWORK_ERROR' };
 		throw e;
 	}
 };

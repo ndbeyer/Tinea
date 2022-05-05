@@ -15,6 +15,12 @@ export const getToken = (): string | null => {
 	return cachedJwt;
 };
 
+export const saveJwtAndFetchUser = async (jwt: string): Promise<void> => {
+	await EncryptedStorage.setItem('jwt', jwt);
+	cachedJwt = jwt;
+	await fetchUser();
+};
+
 export const useGetJwtFromStorageAndFetchUser = (): void => {
 	React.useEffect(() => {
 		(async () => {
@@ -47,6 +53,7 @@ export const logout = async (): Promise<void> => {
 export const fetchUser = async (): Promise<void> => {
 	const fetchUserResult = await client.query({
 		query: CURRENT_USER_QUERY,
+		fetchPolicy: 'network-only',
 	});
 	console.log('fetchUserResult: ', fetchUserResult);
 };
@@ -63,19 +70,11 @@ type AppState = 'LOGGED_IN' | 'LOGGED_OUT' | 'LOADING';
 // this happens in the old (Audioshares) and new apollo implementation (@apollo/client)
 
 export const useAppState = (): AppState => {
-	const { data } = useQuery(
-		gql`
-			query CurrentUser {
-				currentUser {
-					id
-				}
-			}
-		`
-	);
+	const currentUser = useCurrentUser();
 
 	const appState: AppState = React.useMemo(
-		() => (data?.currentUser ? 'LOGGED_IN' : data?.currentUser === null ? 'LOGGED_OUT' : 'LOADING'),
-		[data?.currentUser]
+		() => (currentUser ? 'LOGGED_IN' : currentUser === null ? 'LOGGED_OUT' : 'LOADING'),
+		[currentUser]
 	);
 	return appState;
 };

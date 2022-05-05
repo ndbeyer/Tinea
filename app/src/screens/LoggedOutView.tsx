@@ -12,6 +12,7 @@ import Input from '../components/Input';
 import Box from '../components/Box';
 import { Label } from '../components/Text';
 import register from '../utils/mutations/register';
+import login from '../utils/mutations/login';
 import confirmEmail from '../utils/mutations/confirmEmail';
 
 const StyledScreen = styled(Screen)`
@@ -41,6 +42,9 @@ const errorDict = {
 	EMAIL_ALREADY_CONFIRMED: 'Email bereits bestätigt',
 	EMAIL_NOT_EXISTENT: 'Diese Emailadresse ist uns leider nicht bekannt.',
 	SAVE_JWT_ERROR: 'Fehler beim Speichern des JWT',
+	USER_NOT_FOUND: 'Nutzer nicht gefunden',
+	USER_NOT_VERIFIED: 'Nutzer nicht verifiziert',
+	CREDENTIALS_DO_NOT_MATCH: 'Email und Passwort passen nicht zusammen',
 };
 
 const LoginScreen = ({ navigation }): JSX.Element => {
@@ -57,9 +61,18 @@ const LoginScreen = ({ navigation }): JSX.Element => {
 
 	const handleLogin = React.useCallback(async () => {
 		setLoading(true);
-		// await login('')
+		const { success, error } = await login({ email, password });
 		setLoading(false);
-	}, []);
+		if (success) {
+			// do nothing, user will be fetched and appState will change
+		} else {
+			Dialog.render({
+				title: 'Fehler',
+				description: errorDict[error] || errorDict['UNEXPECTED_ERROR'],
+			});
+		}
+		setLoading(false);
+	}, [email, password]);
 
 	const handleRegister = React.useCallback(async () => {
 		setLoading(true);
@@ -135,7 +148,7 @@ const LoginScreen = ({ navigation }): JSX.Element => {
 						<Label m="2rem">Einloggen</Label>
 						<Box m="3rem 0">
 							<Input placeholder="email" m="1rem" />
-							<Input placeholder="password" m="1rem" />
+							<Input placeholder="password" m="1rem" password />
 							<Box row alignSelf="stretch" width="100%">
 								<Button link label="Noch kein Konto?" onPress={handleToggleMode} />
 							</Box>

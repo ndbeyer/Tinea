@@ -18,7 +18,6 @@ const register = async ({
 	password: string;
 }): Promise<{ success: true; error: undefined } | { success: false; error: ErrorType }> => {
 	try {
-		// @ts-ignore
 		const { errors } = await client.mutate({
 			mutation: gql`
 				mutation Register($email: String!, $password: String!) {
