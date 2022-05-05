@@ -7,6 +7,7 @@ import TabBar from '../components/TabBar';
 import PlaceHolderScreen from './PlaceHolderScreen';
 import InitializingScreen from './InitializingScreen';
 import LoggedOutView from './LoggedOutView';
+import SettingsView from './SettingsView';
 
 import { useAppState, useGetJwtFromStorageAndFetchUser } from '../utils/user';
 
@@ -46,7 +47,7 @@ const screens: Screen[] = [
 	},
 	{
 		name: 'Settings',
-		component: PlaceHolderScreen,
+		component: SettingsView,
 		tab: true,
 		icon: 'gear',
 	},

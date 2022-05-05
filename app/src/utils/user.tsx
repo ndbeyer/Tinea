@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import RNRestart from 'react-native-restart';
 
 import client from './client';
 
@@ -38,10 +39,16 @@ export const CURRENT_USER_QUERY = gql`
 	}
 `;
 
+export const logout = async (): Promise<void> => {
+	await EncryptedStorage.removeItem('jwt');
+	RNRestart.Restart();
+};
+
 export const fetchUser = async (): Promise<void> => {
-	await client.query({
+	const fetchUserResult = await client.query({
 		query: CURRENT_USER_QUERY,
 	});
+	console.log('fetchUserResult: ', fetchUserResult);
 };
 
 export const useCurrentUser = (): undefined | null | CurrentUser => {
@@ -56,7 +63,7 @@ type AppState = 'LOGGED_IN' | 'LOGGED_OUT' | 'LOADING';
 // this happens in the old (Audioshares) and new apollo implementation (@apollo/client)
 
 export const useAppState = (): AppState => {
-	const currentUser = useQuery(
+	const { data } = useQuery(
 		gql`
 			query CurrentUser {
 				currentUser {
@@ -65,9 +72,10 @@ export const useAppState = (): AppState => {
 			}
 		`
 	);
+
 	const appState: AppState = React.useMemo(
-		() => (currentUser ? 'LOGGED_IN' : currentUser === null ? 'LOGGED_OUT' : 'LOADING'),
-		[currentUser]
+		() => (data?.currentUser ? 'LOGGED_IN' : data?.currentUser === null ? 'LOGGED_OUT' : 'LOADING'),
+		[data?.currentUser]
 	);
 	return appState;
 };
