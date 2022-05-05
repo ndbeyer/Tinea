@@ -18,7 +18,6 @@ export const getToken = (): string | null => {
 export const saveJwtAndFetchUser = async (jwt: string): Promise<void> => {
 	await EncryptedStorage.setItem('jwt', jwt);
 	cachedJwt = jwt;
-	await fetchUser();
 };
 
 export const useGetJwtFromStorageAndFetchUser = (): void => {
@@ -71,7 +70,6 @@ type AppState = 'LOGGED_IN' | 'LOGGED_OUT' | 'LOADING';
 
 export const useAppState = (): AppState => {
 	const currentUser = useCurrentUser();
-
 	const appState: AppState = React.useMemo(
 		() => (currentUser ? 'LOGGED_IN' : currentUser === null ? 'LOGGED_OUT' : 'LOADING'),
 		[currentUser]

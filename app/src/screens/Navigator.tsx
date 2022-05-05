@@ -9,7 +9,7 @@ import InitializingScreen from './InitializingScreen';
 import LoggedOutView from './LoggedOutView';
 import SettingsView from './SettingsView';
 
-import { useAppState, useGetJwtFromStorageAndFetchUser } from '../utils/user';
+import { useAppState, useCurrentUser, useGetJwtFromStorageAndFetchUser } from '../utils/user';
 
 type Screen = {
 	name: string;
@@ -118,7 +118,10 @@ const TabNavigator = ({
 const Navigator = (): JSX.Element => {
 	const appState = useAppState();
 	console.log('APP_STATE: ', appState);
-	useGetJwtFromStorageAndFetchUser();
+
+	const currentUser = useCurrentUser();
+	console.log('currentUser: ', currentUser);
+	// useGetJwtFromStorageAndFetchUser();
 
 	return (
 		<NavigationContainer>

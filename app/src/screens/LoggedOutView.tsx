@@ -48,7 +48,7 @@ const errorDict = {
 };
 
 const LoginScreen = ({ navigation }): JSX.Element => {
-	const [mode, setMode] = React.useState<'REGISTER' | 'CONFIRMATION' | 'LOGIN'>('REGISTER');
+	const [mode, setMode] = React.useState<'REGISTER' | 'CONFIRMATION' | 'LOGIN'>('LOGIN');
 	const [email, setEmail] = React.useState<string>('');
 	const [password, setPassword] = React.useState<string>('');
 	const [code, setCode] = React.useState<string>('');
@@ -147,8 +147,8 @@ const LoginScreen = ({ navigation }): JSX.Element => {
 					<>
 						<Label m="2rem">Einloggen</Label>
 						<Box m="3rem 0">
-							<Input placeholder="email" m="1rem" />
-							<Input placeholder="password" m="1rem" password />
+							<Input placeholder="email" m="1rem" onChange={setEmail} />
+							<Input placeholder="password" m="1rem" password onChange={setPassword} />
 							<Box row alignSelf="stretch" width="100%">
 								<Button link label="Noch kein Konto?" onPress={handleToggleMode} />
 							</Box>

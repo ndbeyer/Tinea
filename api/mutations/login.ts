@@ -5,7 +5,10 @@ import jwt from 'jsonwebtoken';
 import sql from 'sql-tagged-template-literal';
 import { ApolloError } from 'apollo-server-core';
 
+import User from '../classes/User';
+
 const login = async (_, { email, password }) => {
+	console.log('{ email, password }: ', { email, password });
 	const res = await db.query(
 		sql`SELECT id, password, email_confirmed FROM "user" WHERE email = ${email}`
 	);
@@ -22,7 +25,10 @@ const login = async (_, { email, password }) => {
 		const token = jwt.sign(payload, consts.API_JWT_SECRET, {
 			expiresIn: 720000,
 		});
+		const user = await User.gen({ id: res.rows[0].id });
+		console.log('user: ', user);
 		return {
+			user,
 			success: true,
 			jwt: token,
 		};
