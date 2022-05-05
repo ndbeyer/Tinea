@@ -6,7 +6,7 @@ import { HttpLink } from 'apollo-link-http';
 import { ErrorLink } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import { getToken } from '../utils/user';
+import { getJwt } from '../utils/user';
 
 import { API_BASE_URL } from '../consts';
 
@@ -15,8 +15,7 @@ const httpLink = new HttpLink({
 });
 
 const authLink = new ApolloLink((operation, forward) => {
-	console.log('token', getToken());
-	operation.setContext({ headers: { Authorization: `Bearer ${getToken()}` } });
+	operation.setContext({ headers: { Authorization: `Bearer ${getJwt()}` } });
 	return forward(operation);
 });
 
@@ -43,11 +42,7 @@ const errorLink = new ErrorLink(({ graphQLErrors, networkError }) => {
 	}
 });
 
-const link = ApolloLink.from([
-	authLink,
-	errorLink,
-	httpLink,
-]);
+const link = ApolloLink.from([authLink, errorLink, httpLink]);
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),

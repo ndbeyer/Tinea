@@ -8,17 +8,23 @@ import client from './client';
 
 let cachedJwt: null | string = null;
 
-export const setToken = (jwt: string): void => {
+export const setJwt = (jwt: string): void => {
 	cachedJwt = jwt;
 };
 
-export const getToken = (): string | null => {
+export const getJwt = (): string | null => {
 	return cachedJwt;
 };
 
-export const saveJwtAndFetchUser = async (jwt: string): Promise<void> => {
-	await EncryptedStorage.setItem('jwt', jwt);
-	cachedJwt = jwt;
+export const saveTokensAndFetchUser = async ({
+	jwt,
+	refreshToken,
+}: {
+	jwt: string;
+	refreshToken: string;
+}): Promise<void> => {
+	await EncryptedStorage.setItem('refreshToken', refreshToken);
+	setJwt(jwt);
 	await fetchUser();
 };
 

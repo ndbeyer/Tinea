@@ -3,6 +3,7 @@
     "apollo-server-core": "^3.6.7",
     "apollo-server-express": "^3.6.7",
     "bcrypt": "^5.0.1",
+    "crypto-random-string": "^3.3.1",
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

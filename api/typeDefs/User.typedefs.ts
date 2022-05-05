@@ -5,7 +5,7 @@ const UserTypeDefs = gql`
 		currentUser: User
 	}
 	extend type Mutation {
-		register(email: String!, password: String!, termsAccepted: Boolean): AuthResponse
+		register(email: String!, password: String!, termsAccepted: Boolean): SuccessResponse
 		confirmEmail(confirmationCode: String!, emailAddress: String!): AuthResponse
 		login(email: String!, password: String!): AuthResponse
 	}
@@ -14,9 +14,13 @@ const UserTypeDefs = gql`
 		email: String!
 		createdAt: String!
 	}
+	type SuccessResponse {
+		success: Boolean!
+	}
 	type AuthResponse {
 		success: Boolean!
-		jwt: String
+		jwt: String!
+		refreshToken: String!
 	}
 	enum VerificationType {
 		LINK

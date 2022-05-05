@@ -15,8 +15,8 @@ const login = async ({
 	email: string;
 	password: string;
 }): Promise<
-	| { success: true; error: undefined; jwt: string }
-	| { success: false; error: Error; jwt: undefined }
+	| { success: true; error: undefined; jwt: string; refreshToken: string }
+	| { success: false; error: Error; jwt: undefined; refreshToken: undefined }
 > => {
 	try {
 		const { data, errors } = await client.mutate({
@@ -25,6 +25,7 @@ const login = async ({
 					login(email: $email, password: $password) {
 						success
 						jwt
+						refreshToken
 					}
 				}
 			`,
@@ -36,6 +37,7 @@ const login = async ({
 				success: false,
 				error: errors[0]?.extensions?.code as Error,
 				jwt: undefined,
+				refreshToken: undefined,
 			};
 		}
 
@@ -43,9 +45,11 @@ const login = async ({
 			success: true,
 			error: undefined,
 			jwt: data.login.jwt,
+			refreshToken: data.login.refreshToken,
 		};
 	} catch (e: any) {
-		if (e && e.networkError) return { success: false, error: 'NETWORK_ERROR', jwt: undefined };
+		if (e && e.networkError)
+			return { success: false, error: 'NETWORK_ERROR', jwt: undefined, refreshToken: undefined };
 		throw e;
 	}
 };

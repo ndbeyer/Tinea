@@ -4,8 +4,7 @@ import consts from '../consts';
 import jwt from 'jsonwebtoken';
 import sql from 'sql-tagged-template-literal';
 import { ApolloError } from 'apollo-server-core';
-
-import User from '../classes/User';
+import cryptoRandomString from 'crypto-random-string';
 
 const login = async (_, { email, password }) => {
 	console.log('{ email, password }: ', { email, password });
@@ -20,7 +19,14 @@ const login = async (_, { email, password }) => {
 	}
 	const isMatch = await bcrypt.compare(password, res.rows[0].password);
 	if (isMatch) {
+		const refreshToken = cryptoRandomString({ length: 30 });
 		const userId = res.rows[0].id;
+		await db.query(sql`
+			UPDATE "user" SET 
+			refresh_token = ${refreshToken}, 
+			refresh_token_valid_until = now() + interval '180 days'
+			WHERE id = ${userId} 
+		`);
 		const payload = { userId };
 		const token = jwt.sign(payload, consts.API_JWT_SECRET, {
 			expiresIn: 720000,
@@ -28,6 +34,7 @@ const login = async (_, { email, password }) => {
 		return {
 			success: true,
 			jwt: token,
+			refreshToken,
 		};
 	} else {
 		throw new ApolloError('CREDENTIALS_DO_NOT_MATCH', 'CREDENTIALS_DO_NOT_MATCH');

@@ -3,6 +3,7 @@ import consts from '../consts';
 import jwt from 'jsonwebtoken';
 import { ApolloError } from 'apollo-server-core';
 import sql from 'sql-tagged-template-literal';
+import cryptoRandomString from 'crypto-random-string';
 
 const confirmEmail = async (_, { confirmationCode, emailAddress }) => {
 	const res = await db.query(
@@ -14,9 +15,16 @@ const confirmEmail = async (_, { confirmationCode, emailAddress }) => {
 	if (res.rows[0].emailConfirmed) {
 		throw new ApolloError('EMAIL_ALREADY_CONFIRMED', 'EMAIL_ALREADY_CONFIRMED');
 	}
+	const refreshToken = cryptoRandomString({ length: 30 });
 	const userId = (
 		await db.query(
-			sql`UPDATE "user" SET email_confirmed = true WHERE confirmation_code = ${confirmationCode} RETURNING id`
+			sql`UPDATE "user" SET 
+			email_confirmed = true, 
+			refresh_token = ${refreshToken}, 
+			refresh_token_valid_until = now() + interval '180 days'
+			WHERE confirmation_code = ${confirmationCode} 
+			RETURNING id
+		`
 		)
 	).rows[0]?.id;
 
@@ -27,6 +35,7 @@ const confirmEmail = async (_, { confirmationCode, emailAddress }) => {
 	return {
 		success: true,
 		jwt: token,
+		refreshToken,
 	};
 };
 

@@ -22,12 +22,14 @@ const tables = {
     id serial NOT NULL,
     email text NOT NULL UNIQUE,
     password text NOT NULL,
-	  email_confirmed boolean,
-	  confirmation_code text NOT NULL,
+	email_confirmed boolean,
+	confirmation_code text NOT NULL,
     created_at timestamp with time zone NOT NULL,
-	  updated_at timestamp with time zone NOT NULL,
-	  terms_accepted_at timestamp with time zone NOT NULL,
-      PRIMARY KEY (id)
+	updated_at timestamp with time zone NOT NULL,
+	terms_accepted_at timestamp with time zone NOT NULL,
+	refresh_token text,
+	refresh_token_valid_until timestamp with time zone,
+    PRIMARY KEY (id)
   )`,
 };
 

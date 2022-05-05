@@ -13,8 +13,8 @@ const confirmEmail = async (
 	emailAddress: string,
 	confirmationCode: string
 ): Promise<
-	| { success: true; error: undefined; jwt: string }
-	| { success: false; error: Error; jwt: undefined }
+	| { success: true; error: undefined; jwt: string; refreshToken: string }
+	| { success: false; error: Error; jwt: undefined; refreshToken: undefined }
 > => {
 	try {
 		const { data, errors } = await client.mutate({
@@ -23,21 +23,29 @@ const confirmEmail = async (
 					confirmEmail(confirmationCode: $confirmationCode, emailAddress: $emailAddress) {
 						success
 						jwt
+						refreshToken
 					}
 				}
 			`,
 			variables: { confirmationCode, emailAddress },
 		});
 		if (errors) {
-			return { success: false, error: errors[0]?.extensions?.code as Error, jwt: undefined };
+			return {
+				success: false,
+				error: errors[0]?.extensions?.code as Error,
+				jwt: undefined,
+				refreshToken: undefined,
+			};
 		}
 		return {
 			success: true,
 			error: undefined,
-			jwt: data.confirmEmail.jwt,
+			jwt: data.login.jwt,
+			refreshToken: data.login.refreshToken,
 		};
 	} catch (e: any) {
-		if (e && e.networkError) return { success: false, error: 'NETWORK_ERROR', jwt: undefined };
+		if (e && e.networkError)
+			return { success: false, error: 'NETWORK_ERROR', jwt: undefined, refreshToken: undefined };
 		throw e;
 	}
 };
