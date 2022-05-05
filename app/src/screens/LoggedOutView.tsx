@@ -72,7 +72,6 @@ const LoginScreen = ({ navigation }): JSX.Element => {
 				description: errorDict[error] || errorDict['UNEXPECTED_ERROR'],
 			});
 		}
-		setLoading(false);
 	}, [email, password]);
 
 	const handleRegister = React.useCallback(async () => {
