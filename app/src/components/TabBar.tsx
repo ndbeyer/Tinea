@@ -92,7 +92,7 @@ const MyTabBar = ({ state, navigation }): JSX.Element => {
 			<FooterContent marginBottom={bottomInsets} height={footerHeight - bottomInsets}>
 				{state.routes.map((route, index) => {
 					const iconName = tabs[index].icon;
-					const label = route.name;
+					const label = tabs[index].tabLabel || route.name;
 					const isFocused = state.index === index;
 
 					return (

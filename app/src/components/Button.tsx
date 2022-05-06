@@ -13,6 +13,7 @@ const LoadingWrapper = styled.View`
 `;
 
 const Wrapper = styled.TouchableOpacity`
+	${(p) => (p.fullWidth ? 'flex: 1;' : '')};
 	background-color: ${(p) => p.theme.colors[p.backgroundColor.replace('$', '')]};
 	border-width: ${(p) => (p.outline ? 1 : 0)}px;
 	border-style: solid;
@@ -42,10 +43,11 @@ const Button = ({
 	light = true,
 	margin = '1rem',
 	link,
+	fullWidth,
 }: {
 	key?: string;
-	id?: string;
-	onPress: (id?: string) => void;
+	id?: string | number;
+	onPress: (id?: string | number) => void;
 	label: string;
 	outline?: boolean;
 	loading?: boolean;
@@ -56,6 +58,7 @@ const Button = ({
 	light?: boolean;
 	margin?: string;
 	link?: boolean;
+	fullWidth?: boolean;
 }): JSX.Element | null => {
 	const handlePress = React.useCallback(() => {
 		onPress && onPress(id);
@@ -79,6 +82,7 @@ const Button = ({
 			outline={outline}
 			backgroundColor={backgroundColor}
 			mar={margin}
+			fullWidth={fullWidth}
 		>
 			<>
 				{loading ? (

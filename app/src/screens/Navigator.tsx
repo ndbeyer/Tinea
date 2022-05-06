@@ -8,6 +8,7 @@ import PlaceHolderScreen from './PlaceHolderScreen';
 import InitializingScreen from './InitializingScreen';
 import LoggedOutView from './LoggedOutView';
 import SettingsView from './SettingsView';
+import QuestionaireView from './QuestionaireView';
 
 import { useAppState } from '../utils/user';
 
@@ -16,12 +17,14 @@ type Screen = {
 	component: ({ navigation }: { navigation: any }) => JSX.Element;
 	tab?: boolean;
 	icon?: string;
+	tabLabel?: string;
 };
 
 type Tab = {
 	name: string;
 	component: ({ navigation }: { navigation: any }) => JSX.Element;
 	icon: string;
+	tabLabel?: string;
 };
 
 // define all Screens that the app will have
@@ -34,10 +37,11 @@ const screens: Screen[] = [
 		icon: 'dashboard',
 	},
 	{
-		name: 'Playlists',
-		component: PlaceHolderScreen,
+		name: 'Fragen',
+		component: QuestionaireView,
 		tab: true,
 		icon: 'play',
+		tabLabel: 'Fragen',
 	},
 	{
 		name: 'Transactions',
@@ -81,10 +85,11 @@ const generateStackNavigatorWithAllScreens = (initialRouteName) => () => {
 
 export const tabs = screens
 	.filter(({ tab }) => tab === true)
-	.map(({ name: screenName, icon }) => ({
+	.map(({ name: screenName, icon, tabLabel }) => ({
 		name: `${screenName}Tab`,
 		component: generateStackNavigatorWithAllScreens(screenName),
 		icon,
+		tabLabel,
 	})) as Tab[];
 
 // create tab navigator from tabs
