@@ -14,24 +14,51 @@ const rawQuestions: {
 	problmaticWhen?: boolean; // self medication not recommended
 	criticalWhen?: boolean; // true if the person must see a doctor
 	nextIfTrue?: number;
+	footFungusPlausbilePoints?: number;
 }[] = [
 	// Symptome
-	{ question: 'Jucken die betroffenen Hautstellen', answerType: 'BOOLEAN' },
+	{
+		question: 'Jucken die betroffenen Hautstellen',
+		footFungusPlausbilePoints: 2,
+		answerType: 'BOOLEAN',
+	},
 	{
 		question: 'Haben Sie an den betroffenen Hautstellen Schmerzen',
 		answerType: 'BOOLEAN',
 		problmaticWhen: true,
 	},
-	{ question: 'Sind die betroffenen Hautstellen gerötet', answerType: 'BOOLEAN' },
-	{ question: 'Brennen die betroffenen Hautstellen', answerType: 'BOOLEAN' },
-	{ question: 'Nässen die betroffenen Hautstellen', answerType: 'BOOLEAN', problmaticWhen: true },
-	{ question: 'Schuppen die betroffenen Hautstellen', answerType: 'BOOLEAN' },
+	{
+		question: 'Sind die betroffenen Hautstellen gerötet',
+		answerType: 'BOOLEAN',
+		footFungusPlausbilePoints: 2,
+	},
+	{
+		question: 'Brennen die betroffenen Hautstellen',
+		answerType: 'BOOLEAN',
+		footFungusPlausbilePoints: 1,
+	},
+	{
+		question: 'Nässen die betroffenen Hautstellen',
+		answerType: 'BOOLEAN',
+		footFungusPlausbilePoints: 1,
+		problmaticWhen: true,
+	},
+	{
+		question: 'Schuppen die betroffenen Hautstellen',
+		footFungusPlausbilePoints: 2,
+		answerType: 'BOOLEAN',
+	},
 	{
 		question: 'Haben sich an den Stellen Bläschen gebildet',
 		answerType: 'BOOLEAN',
 		problmaticWhen: true,
+		footFungusPlausbilePoints: 1,
 	},
-	{ question: 'Färben sich die betroffenen Hautstellen weißlich', answerType: 'BOOLEAN' },
+	{
+		question: 'Färben sich die betroffenen Hautstellen weißlich',
+		footFungusPlausbilePoints: 1,
+		answerType: 'BOOLEAN',
+	},
 	// Erfahrungen / Dauer
 	{
 		question: 'Wurden die Symptome bereits durch einen Arzt abgeklärt',
@@ -48,19 +75,31 @@ const rawQuestions: {
 		answerType: 'BOOLEAN',
 		problmaticWhen: false,
 	},
+	{
+		question: 'Haben Sie die Symptome bereits erfolglos therapiert',
+		answerType: 'BOOLEAN',
+		problmaticWhen: true,
+	},
 	// Zusammenhang
-	{ question: 'Leiden Sie unter Schweißfüßen', answerType: 'BOOLEAN' },
+	{
+		question: 'Leiden Sie unter Schweißfüßen',
+		answerType: 'BOOLEAN',
+		footFungusPlausbilePoints: 1,
+	},
 	{
 		question: 'Treten die Symptome in Zusammenhang mit dem Besuch eines Schwimmbads auf',
 		answerType: 'BOOLEAN',
+		footFungusPlausbilePoints: 1,
 	},
 	{
 		question: 'Treten die Symptome in Zusammehang mit Sport z.B. Joggen auf',
 		answerType: 'BOOLEAN',
+		footFungusPlausbilePoints: 1,
 	},
 	{
 		question: 'Treten die Symptome in Zusammehang mit dem Tragen bestimmter Schuhe auf',
 		answerType: 'BOOLEAN',
+		footFungusPlausbilePoints: 1,
 	},
 	// Betroffene Stellen
 	{
@@ -72,7 +111,7 @@ const rawQuestions: {
 		question: 'Sind auch die Fußnägel betroffen',
 		problmaticWhen: true,
 		answerType: 'BOOLEAN',
-		nextIfTrue: 100,
+		footFungusPlausbilePoints: 1,
 	},
 	{
 		question: 'Sind auch über die Füße hinaus andere Köperregionen betroffen',
@@ -92,15 +131,6 @@ const rawQuestions: {
 	},
 	{ question: 'Nehmen Sie Zytostatika ein', answerType: 'BOOLEAN', criticalWhen: true },
 	{ question: 'Nehmen Sie Immunsuppressiva ein', answerType: 'BOOLEAN', criticalWhen: true },
-	// optional TODO:
-	// {
-	// 	id: 100,
-	// 	question:
-	// 		'Sind mehr als zwei Drittel der Nagelplatte oder mehr als zwei bis drei Nägel betroffen',
-	// 	optional: true,
-	// 	answerType: 'BOOLEAN',
-	// 	problmaticWhen: true,
-	// },
 ];
 
 const StyledScreen = styled(Screen)`

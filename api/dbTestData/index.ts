@@ -1,11 +1,14 @@
-import user, { type UserData } from "./userTestData";
+import user, { UserData } from './userTestData';
+import pharmaceutical, { PharmaceuticalData } from './pharmaceuticalData';
 
 type TestData = {
-  user: UserData;
+	user: UserData;
+	pharmaceutical: PharmaceuticalData;
 };
 
 const testData: TestData = {
-  user,
+	user,
+	pharmaceutical,
 };
 
 export default testData;

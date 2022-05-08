@@ -5,10 +5,10 @@ import db from '../db';
 import dbTestData from '../dbTestData';
 
 const types = {
-	//   product_target: sql`
-	// 	CREATE TYPE "product_target" AS ENUM
-	// 	('TEACHER', 'PUPIL');
-	// `,
+	application_area_type: sql`
+		CREATE TYPE "application_area_type" AS ENUM
+		('FOOT_FUNGUS', 'NAIL_FUNGUS');
+	`,
 	//   user_type: sql`
 	// 		CREATE TYPE "user_type" AS ENUM
 	// 		('TEACHER', 'PUPIL');
@@ -31,6 +31,24 @@ const tables = {
 	refresh_token_valid_until timestamp with time zone,
     PRIMARY KEY (id)
   )`,
+	pharmaceutical: sql`
+  CREATE TABLE "pharmaceutical"
+(
+	id serial NOT NULL,
+	created_at timestamp with time zone NOT NULL,
+	updated_at timestamp with time zone NOT NULL,
+	pzn text NOT NULL,
+	title text NOT NULL,
+	image text NOT NULL,
+	info_text text NOT NULL,
+	price_in_cents integer NOT NULL,
+	application_area application_area_type NOT NULL,
+	dosage_form text NOT NULL,
+	application_interval text NOT NULL,
+	application_duration text NOT NULL,
+	manufacturer text NOT NULL,
+	amount text NOT NULL
+)`,
 };
 
 const reportError = (error, relation) => {
