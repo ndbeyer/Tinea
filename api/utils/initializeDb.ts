@@ -32,7 +32,7 @@ const tables = {
     PRIMARY KEY (id)
   )`,
 	pharmaceutical: sql`
-  CREATE TABLE "pharmaceutical"
+  	CREATE TABLE "pharmaceutical"
 (
 	id serial NOT NULL,
 	created_at timestamp with time zone NOT NULL,
