@@ -40,8 +40,8 @@ const confirmEmail = async (
 		return {
 			success: true,
 			error: undefined,
-			jwt: data.login.jwt,
-			refreshToken: data.login.refreshToken,
+			jwt: data.confirmEmail.jwt,
+			refreshToken: data.confirmEmail.refreshToken,
 		};
 	} catch (e: any) {
 		if (e && e.networkError)
