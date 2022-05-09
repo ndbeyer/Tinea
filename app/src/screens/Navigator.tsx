@@ -9,6 +9,7 @@ import InitializingScreen from './InitializingScreen';
 import LoggedOutView from './LoggedOutView';
 import SettingsView from './SettingsView';
 import QuestionaireView from './QuestionaireView';
+import PharmaceuticalsView from './PharmaceuticalsView';
 
 import { useAppState } from '../utils/user';
 
@@ -31,10 +32,11 @@ type Tab = {
 
 const screens: Screen[] = [
 	{
-		name: 'Dashboard',
-		component: PlaceHolderScreen,
+		name: 'Products',
+		component: PharmaceuticalsView,
 		tab: true,
 		icon: 'dashboard',
+		tabLabel: 'Produkte',
 	},
 	{
 		name: 'Fragen',

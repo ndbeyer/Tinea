@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { View } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 
 const Wrapper = styled(View)`
 	margin: ${(p) => p.theme.rem2px(p.m) || '0px'};
@@ -15,6 +15,23 @@ const Wrapper = styled(View)`
 	background-color: ${(p) => p.theme.colors[p.bg] || 'auto'};
 	align-self: ${(p) => p.alignSelf || 'auto'};
 `;
+
+export type BoxProps = {
+	m?: string;
+	p?: string;
+	height?: string;
+	width?: string;
+	row?: boolean;
+	borderRadius?: string;
+	border?: string;
+	justifyContent?: 'flex-start' | 'flex-end' | 'center';
+	alignItems?: 'flex-start' | 'flex-end' | 'center';
+	elevation?: number;
+	bg?: string;
+	alignSelf?: 'stretch';
+	children?: JSX.Element | null | (JSX.Element | null)[];
+	style?: ViewStyle;
+};
 
 const Box = ({
 	m,
@@ -31,22 +48,7 @@ const Box = ({
 	alignSelf,
 	children,
 	style,
-}: {
-	m?: string;
-	p?: string;
-	height?: string;
-	width?: string;
-	row?: boolean;
-	borderRadius?: string;
-	border?: string;
-	justifyContent?: 'flex-start' | 'flex-end' | 'center';
-	alignItems?: 'flex-start' | 'flex-end' | 'center';
-	elevation?: number;
-	bg?: string;
-	alignSelf?: 'stretch';
-	children?: JSX.Element | null | (JSX.Element | null)[];
-	style?: any;
-}): JSX.Element => {
+}: BoxProps): JSX.Element => {
 	const shadowStyle = React.useMemo(
 		() =>
 			elevation
