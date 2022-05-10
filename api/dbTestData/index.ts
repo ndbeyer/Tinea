@@ -1,5 +1,5 @@
 import user, { UserData } from './userTestData';
-import pharmaceutical, { PharmaceuticalData } from './pharmaceuticalData';
+import pharmaceutical, { PharmaceuticalData } from './pharmaceuticalTestData';
 
 type TestData = {
 	user: UserData;
