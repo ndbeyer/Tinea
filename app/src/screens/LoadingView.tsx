@@ -10,12 +10,12 @@ const StyledScreen = styled(Screen)`
 	justify-content: center;
 `;
 
-const InitializingScreen = (): JSX.Element => {
+const LoadingView = (): JSX.Element => {
 	return (
 		<StyledScreen>
-			<Text>InitializingScreen</Text>
+			<Text>LoadingView</Text>
 		</StyledScreen>
 	);
 };
 
-export default InitializingScreen;
+export default LoadingView;

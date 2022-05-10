@@ -48,7 +48,7 @@ const errorDict = {
 	CREDENTIALS_DO_NOT_MATCH: 'Email und Passwort passen nicht zusammen',
 };
 
-const LoginScreen = ({ navigation }): JSX.Element => {
+const LoginScreen = ({ navigation }: { navigation: any }): JSX.Element => {
 	const [mode, setMode] = React.useState<'REGISTER' | 'CONFIRMATION' | 'LOGIN'>('LOGIN');
 	const [email, setEmail] = React.useState<string>('');
 	const [password, setPassword] = React.useState<string>('');

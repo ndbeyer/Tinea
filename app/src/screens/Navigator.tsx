@@ -5,13 +5,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import TabBar from '../components/TabBar';
 import PlaceHolderScreen from './PlaceHolderScreen';
-import InitializingScreen from './InitializingScreen';
+import LoadingView from './LoadingView';
 import LoggedOutView from './LoggedOutView';
 import SettingsView from './SettingsView';
 import QuestionaireView from './QuestionaireView';
 import PharmaceuticalsView from './PharmaceuticalsView';
 
 import { useAppState } from '../utils/user';
+import InitialView from './InitialView';
 
 type Screen = {
 	name: string;
@@ -124,13 +125,14 @@ const TabNavigator = ({
 
 const Navigator = (): JSX.Element => {
 	const appState = useAppState();
+	const userStatus = 'INITIAL';
 	console.log('APP_STATE: ', appState);
 
 	return (
 		<NavigationContainer>
 			{appState === 'LOADING' ? (
 				<Stack.Navigator screenOptions={defaultScreenOptions}>
-					<Stack.Screen name="Initializing" component={InitializingScreen} />
+					<Stack.Screen name="Loading" component={LoadingView} />
 				</Stack.Navigator>
 			) : appState === 'LOGGED_OUT' ? (
 				<>
@@ -139,7 +141,13 @@ const Navigator = (): JSX.Element => {
 					</Stack.Navigator>
 				</>
 			) : appState === 'LOGGED_IN' ? (
-				<TabNavigator initialRouteName="Playlists" tabs={tabs} />
+				userStatus === 'INITIAL' ? (
+					<Stack.Navigator screenOptions={defaultScreenOptions}>
+						<Stack.Screen name="Willkommen" component={InitialView} />
+					</Stack.Navigator>
+				) : (
+					<TabNavigator initialRouteName="Playlists" tabs={tabs} />
+				)
 			) : null}
 		</NavigationContainer>
 	);
