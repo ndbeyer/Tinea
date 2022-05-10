@@ -5,6 +5,7 @@ import register from './mutations/register';
 import confirmEmail from './mutations/confirmEmail';
 import refreshLogin from './mutations/refreshLogin';
 import Pharmaceutical from './classes/Pharmaceutical';
+import updateUserStatus from './mutations/updateUserStatus';
 
 const resolvers = {
 	Query: {
@@ -24,6 +25,7 @@ const resolvers = {
 		register,
 		confirmEmail,
 		refreshLogin,
+		updateUserStatus,
 	},
 };
 

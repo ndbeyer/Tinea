@@ -24,14 +24,6 @@ const userTestData: UserData = [
 		// id: 2,
 		email: 'testuser2@gmail.com',
 	},
-	{
-		// id: 3,
-		email: 'adminuser@gmail.com',
-	},
-	{
-		// id: 4,
-		email: 'rootuser@gmail.com',
-	},
 ].map((obj) => ({ ...baseObject, ...obj }));
 
 export default userTestData;

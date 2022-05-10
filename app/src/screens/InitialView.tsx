@@ -1,14 +1,15 @@
 /* */
 
 import React from 'react';
-import styled, { useTheme } from 'styled-components/native';
-import { Text, TouchableOpacity } from 'react-native'; // TODO: replace
-import Screen from '../components/Screen';
+import styled from 'styled-components/native';
+
 import HeaderScrollView from '../components/HeaderScrollView';
 import Box from '../components/Box';
+import Button from '../components/Button';
 import { Label, Paragraph } from '../components/Text';
+import updateUserStatus from '../utils/mutations/updateUserStatus';
 
-const Wrapper = styled(Box).attrs({
+const RowWrapper = styled(Box).attrs({
 	p: '1rem 1rem 0',
 	alignSelf: 'stretch',
 })``;
@@ -22,10 +23,6 @@ const Card = styled(Box).attrs({
 	alignSelf: 'stretch',
 })``;
 
-const StyledTouchableOpacity = styled.TouchableOpacity`
-	align-self: stretch;
-`;
-
 type UserStatus =
 	| 'INITIAL'
 	| 'QUESTIONAIRE'
@@ -37,48 +34,50 @@ const InitialView = (): JSX.Element => {
 	const [loading, setLoading] = React.useState(false);
 	const handleUpdateUserStatus = React.useCallback(async (newStatus: UserStatus) => {
 		console.log('newStatus: ', newStatus);
-
 		setLoading(true);
-		// updateUserStatus
+		const { success, error } = await updateUserStatus({ status: newStatus });
+		console.log('{ success, error }: ', { success, error });
 		setLoading(false);
 	}, []);
 
 	return (
 		<HeaderScrollView>
-			<Wrapper>
+			<RowWrapper>
 				<Card>
 					<Label>Wilkommen bei Tinea!</Label>
-					<Paragraph>
+					<Paragraph m="1rem 0 2rem 0">
 						Tinea soll Menschen mit Nagelpilz helfen, indem es sie bei der entsprechenden
 						Arzneimitteltherapie unterstützend zur Seite steht. Bitte wählen Sie die für Sie
 						zutreffende Aussage.
 					</Paragraph>
-				</Card>
 
-				{/* eslint-disable-next-line react-perf/jsx-no-new-function-as-prop */}
-				<StyledTouchableOpacity onPress={() => handleUpdateUserStatus('QUESTIONAIRE')}>
-					<Card>
-						<Label>Ich vermute, dass ich Nagelpilz habe.</Label>
-					</Card>
-				</StyledTouchableOpacity>
-				{/* eslint-disable-next-line react-perf/jsx-no-new-function-as-prop */}
-				<StyledTouchableOpacity onPress={() => handleUpdateUserStatus('FINISHED_QUESTIONAIRE')}>
-					<Card>
-						<Label>
-							Ich weiß, dass ich Nagelpilz habe und brauche ein Arzneimittel, um diesen behandeln.
-						</Label>
-					</Card>
-				</StyledTouchableOpacity>
-				{/* eslint-disable-next-line react-perf/jsx-no-new-function-as-prop */}
-				<StyledTouchableOpacity onPress={() => handleUpdateUserStatus('HAS_PRODUCT')}>
-					<Card>
-						<Label>
-							Ich weiß, dass ich Nagelpilz habe und habe bereits ein Arzneimittel um diesen
-							behandeln.
-						</Label>
-					</Card>
-				</StyledTouchableOpacity>
-			</Wrapper>
+					<Button
+						margin="0 0 2rem 0"
+						label="Ich vermute, dass ich Nagelpilz habe."
+						onPress={() => handleUpdateUserStatus('QUESTIONAIRE')}
+						backgroundColor="none"
+						outline
+						loading={loading}
+					/>
+					<Button
+						margin="0 0 2rem 0"
+						label="Ich weiß, dass ich Nagelpilz habe und brauche ein Arzneimittel, um diesen behandeln."
+						onPress={() => handleUpdateUserStatus('FINISHED_QUESTIONAIRE')}
+						backgroundColor="none"
+						outline
+						loading={loading}
+					/>
+					<Button
+						margin="0 0 1rem 0"
+						label="Ich weiß, dass ich Nagelpilz habe und habe bereits ein Arzneimittel um diesen
+						behandeln."
+						onPress={() => handleUpdateUserStatus('HAS_PRODUCT')}
+						backgroundColor="none"
+						outline
+						loading={loading}
+					/>
+				</Card>
+			</RowWrapper>
 		</HeaderScrollView>
 	);
 };

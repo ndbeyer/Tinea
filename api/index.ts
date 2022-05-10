@@ -22,7 +22,7 @@ const createContext = ({ req }): Context => {
 };
 
 (async () => {
-	await initializeDb();
+	// await initializeDb();
 	const app = express();
 	const httpServer = http.createServer(app);
 	const server = new ApolloServer({

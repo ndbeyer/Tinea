@@ -14,7 +14,8 @@ const LoadingWrapper = styled.View`
 
 const Wrapper = styled.TouchableOpacity`
 	${(p) => (p.fullWidth ? 'flex: 1;' : '')};
-	background-color: ${(p) => p.theme.colors[p.backgroundColor.replace('$', '')]};
+	background-color: ${(p) =>
+		p.theme.colors[p.backgroundColor.replace('$', '')] || p.backgroundColor};
 	border-width: ${(p) => (p.outline ? 1 : 0)}px;
 	border-style: solid;
 	border-color: ${(p) => p.theme.colors.neutral4};

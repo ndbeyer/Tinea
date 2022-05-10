@@ -9,11 +9,13 @@ const UserTypeDefs = gql`
 		confirmEmail(confirmationCode: String!, emailAddress: String!): AuthResponse
 		login(email: String!, password: String!): AuthResponse
 		refreshLogin(refreshToken: String!): RefreshLoginResponse
+		updateUserStatus(status: UserStatus!): SuccessResponse
 	}
 	type User {
 		id: ID!
 		email: String!
 		createdAt: String!
+		status: UserStatus!
 	}
 	type SuccessResponse {
 		success: Boolean!
@@ -27,13 +29,12 @@ const UserTypeDefs = gql`
 		jwt: String!
 		refreshToken: String!
 	}
-	enum VerificationType {
-		LINK
-		NUMBER
-	}
-	enum UserType {
-		TEACHER
-		PUPIL
+	enum UserStatus {
+		INITIAL
+		QUESTIONAIRE
+		FINISHED_QUESTIONAIRE
+		ORDERED_PRODUCT
+		HAS_PRODUCT
 	}
 `;
 

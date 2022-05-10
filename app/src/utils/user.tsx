@@ -7,6 +7,12 @@ import RNRestart from 'react-native-restart';
 import client from './client';
 import refreshLogin from '../utils/mutations/refreshLogin';
 
+export type User = {
+	id: string;
+	email: string;
+	status: 'INITIAL' | 'QUESTIONAIRE' | 'FINISHED_QUESTIONAIRE' | 'ORDERED_PRODUCT' | 'HAS_PRODUCT';
+};
+
 let cachedJwt: null | string = null;
 
 export const setJwt = (jwt: string): void => {
@@ -31,22 +37,22 @@ export const saveTokensAndFetchUser = async ({
 	await fetchUser();
 };
 
-type CurrentUser = {
-	id: string;
-	email: string;
-};
-
 export const CURRENT_USER_QUERY = gql`
 	query CurrentUser {
 		currentUser {
 			id
 			email
+			status
 		}
 	}
 `;
 
-export const logout = async (): Promise<void> => {
+export const resetEncryptedStorage = async (): Promise<void> => {
 	await EncryptedStorage.removeItem('refreshToken');
+};
+
+export const logout = async (): Promise<void> => {
+	await resetEncryptedStorage();
 	RNRestart.Restart();
 };
 
@@ -57,7 +63,7 @@ export const fetchUser = async (): Promise<void> => {
 	});
 };
 
-export const useCurrentUser = (): undefined | null | CurrentUser => {
+export const useCurrentUser = (): undefined | null | User => {
 	const { data } = useQuery(CURRENT_USER_QUERY);
 	return React.useMemo(() => data?.currentUser, [data?.currentUser]);
 };
@@ -72,9 +78,14 @@ export const useAppState = (): AppState => {
 		(async () => {
 			const refreshToken = await EncryptedStorage.getItem('refreshToken');
 			if (refreshToken) {
-				const { success, jwt } = await refreshLogin({ refreshToken });
+				const { success, error, jwt } = await refreshLogin({ refreshToken });
 				if (success) {
 					await saveTokensAndFetchUser({ jwt });
+				} else {
+					if (error === 'INVALID_REFRESH_TOKEN' || error === 'REFRESH_TOKEN_EXPIRED') {
+						// TODO: Dialog the user that he needs to relogin
+						logout();
+					}
 				}
 			}
 			setTriedRefresh(true);

@@ -9,10 +9,10 @@ const types = {
 		CREATE TYPE "application_area_type" AS ENUM
 		('FOOT_FUNGUS', 'NAIL_FUNGUS');
 	`,
-	//   user_type: sql`
-	// 		CREATE TYPE "user_type" AS ENUM
-	// 		('TEACHER', 'PUPIL');
-	// 	`,
+	user_status_type: sql`
+			CREATE TYPE "user_status_type" AS ENUM
+			('INITIAL', 'QUESTIONAIRE', 'FINISHED_QUESTIONAIRE', 'ORDERED_PRODUCT', 'HAS_PRODUCT');
+		`,
 };
 
 const tables = {
@@ -29,6 +29,7 @@ const tables = {
 	terms_accepted_at timestamp with time zone NOT NULL,
 	refresh_token text,
 	refresh_token_valid_until timestamp with time zone,
+	status user_status_type default 'INITIAL',
     PRIMARY KEY (id)
   )`,
 	pharmaceutical: sql`
