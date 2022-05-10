@@ -1,5 +1,3 @@
-/* */
-
 import React from 'react';
 import styled from 'styled-components/native';
 
@@ -30,15 +28,19 @@ type UserStatus =
 	| 'ORDERED_PRODUCT'
 	| 'HAS_PRODUCT';
 
-const InitialView = (): JSX.Element => {
+const InitialView = ({ navigation }: { navigation: any }): JSX.Element => {
 	const [loading, setLoading] = React.useState(false);
-	const handleUpdateUserStatus = React.useCallback(async (newStatus: UserStatus) => {
-		console.log('newStatus: ', newStatus);
-		setLoading(true);
-		const { success, error } = await updateUserStatus({ status: newStatus });
-		console.log('{ success, error }: ', { success, error });
-		setLoading(false);
-	}, []);
+	const handleUpdateUserStatus = React.useCallback(
+		async (newStatus: UserStatus) => {
+			setLoading(true);
+			const { success, error } = await updateUserStatus({ status: newStatus });
+			if (success) {
+				navigation.navigate('Bla');
+			}
+			setLoading(false);
+		},
+		[navigation]
+	);
 
 	return (
 		<HeaderScrollView>
@@ -54,6 +56,7 @@ const InitialView = (): JSX.Element => {
 					<Button
 						margin="0 0 2rem 0"
 						label="Ich vermute, dass ich Nagelpilz habe."
+						// eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
 						onPress={() => handleUpdateUserStatus('QUESTIONAIRE')}
 						backgroundColor="none"
 						outline
@@ -62,6 +65,7 @@ const InitialView = (): JSX.Element => {
 					<Button
 						margin="0 0 2rem 0"
 						label="Ich weiß, dass ich Nagelpilz habe und brauche ein Arzneimittel, um diesen behandeln."
+						// eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
 						onPress={() => handleUpdateUserStatus('FINISHED_QUESTIONAIRE')}
 						backgroundColor="none"
 						outline
@@ -71,6 +75,7 @@ const InitialView = (): JSX.Element => {
 						margin="0 0 1rem 0"
 						label="Ich weiß, dass ich Nagelpilz habe und habe bereits ein Arzneimittel um diesen
 						behandeln."
+						// eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
 						onPress={() => handleUpdateUserStatus('HAS_PRODUCT')}
 						backgroundColor="none"
 						outline
